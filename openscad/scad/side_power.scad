@@ -1,46 +1,8 @@
+include <common.scad>;
 thickness = 150;
 switch_x =  13;
 switch_z = 20;
 raster =  3*2.54;
-
-module screwhole_mX(d){
-   height = 40;
-   headlength = 0.6*d/2+0.1;
-   rotate([180, 0, 0]){
-     translate([0, 0, -5*headlength]){
-       translate([0, 0, height/2])cylinder(h=height, r=d/2+0.1, center=true, $fn=50);
-       cylinder(h=10*headlength, r=d+0.1, center=true, $fn=50);
-     }
-   }
-}
-
-module nuthole_mX(d){
-   s = (d==2) ? 4: (d==2.5)? 5: (d==3) ? 5.5: 0.0;
-   if (s==0){
-     echo ("Nut size not supported");
-   }
-   e = s/sin(60.0);
-   height = 40;
-   headlength = 0.6*d/2+0.1;
-   translate([0, 0, -5*headlength]){
-     translate([0, 0, height/2])cylinder(h=height, r=d/2+0.1, center=true, $fn=50);
-     cylinder(h=10*headlength, d=e+0.1, center=true, $fn=6);
-   }
-}
-
-module anchor(){
-  cube([40,30,thickness],center=true);
-}
-
-module anchors(x, y, w){
-  w1 = w;
-  w2 = 180-w1;
-  translate([ x, y, 0])rotate([0,0,w1+90])anchor();
-  translate([-x,-y, 0])rotate([0,0,w1-90])anchor();
-  translate([ x,-y, 0])rotate([0,0,w2+270])anchor();
-  translate([-x, y, 0])rotate([0,0,w2+90])anchor();
-}
-
 
 module sidepart(){
   difference(){
@@ -61,7 +23,6 @@ module sidepart(){
         translate([0, -100, 0])cube([150, 50, thickness], center=true);
       }
     }
-    //translate([0, 14, 0])cube([50, 30, thickness], center=true);
   }
 }
 
