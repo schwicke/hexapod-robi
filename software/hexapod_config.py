@@ -1,9 +1,10 @@
 spider_config = {
     "controllers": {
         "u2d2_1":{
-            'port': 'auto',
+            'port': '/dev/ttyUSB0',
             'sync_read': False,
             'attached_motors': ['leg1', 'leg2', 'leg3', 'leg4', 'leg5', 'leg6'],
+            'protocol': 1
         }
     },
     "motors": {
@@ -13,8 +14,8 @@ spider_config = {
             "offset": 0.0,
             "orientation": "direct",
             "angle_limit": [
-                -89.88,
-                89.88
+                -150,
+                150
             ]
         },
         "motor_2": {
@@ -23,8 +24,8 @@ spider_config = {
             "offset": 0.0,
             "orientation": "direct",
             "angle_limit": [
-                -89.88,
-                89.88
+                -150,
+                150
             ]
         },
         "motor_3": {
@@ -33,8 +34,8 @@ spider_config = {
             "offset": 0.0,
             "orientation": "direct",
             "angle_limit": [
-                -89.88,
-                89.88
+                -150,
+                150
             ]
         },
         "motor_4": {
@@ -43,8 +44,8 @@ spider_config = {
             "offset": 0.0,
             "orientation": "direct",
             "angle_limit": [
-                -89.88,
-                89.88
+                -150,
+                150
             ]
         },
         "motor_5": {
@@ -53,8 +54,8 @@ spider_config = {
             "offset": 0.0,
             "orientation": "direct",
             "angle_limit": [
-                -89.88,
-                89.88
+                -150,
+                150
             ]
         },
         "motor_6": {
@@ -63,8 +64,8 @@ spider_config = {
             "offset": 0.0,
             "orientation": "direct",
             "angle_limit": [
-                -89.88,
-                89.88
+                -150,
+                150
             ]
         },
         "motor_7": {
@@ -73,8 +74,8 @@ spider_config = {
             "offset": 0.0,
             "orientation": "direct",
             "angle_limit": [
-                -89.88,
-                89.88
+                -150,
+                150
             ]
         },
         "motor_8": {
@@ -83,8 +84,8 @@ spider_config = {
             "offset": 0.0,
             "orientation": "direct",
             "angle_limit": [
-                -89.88,
-                89.88
+                -150,
+                150
             ]
         },
         "motor_9": {
@@ -93,8 +94,8 @@ spider_config = {
             "offset": 0.0,
             "orientation": "direct",
             "angle_limit": [
-                -89.88,
-                89.88
+                -150,
+                150
             ]
         },
         "motor_10": {
@@ -103,8 +104,8 @@ spider_config = {
             "offset": 0.0,
             "orientation": "direct",
             "angle_limit": [
-                -89.88,
-                89.88
+                -150,
+                150
             ]
         },
         "motor_11": {
@@ -113,8 +114,8 @@ spider_config = {
             "offset": 0.0,
             "orientation": "direct",
             "angle_limit": [
-                -89.88,
-                89.88
+                -150,
+                150
             ]
         },
         "motor_12": {
@@ -123,8 +124,8 @@ spider_config = {
             "offset": 0.0,
             "orientation": "direct",
             "angle_limit": [
-                -89.88,
-                89.88
+                -150,
+                150
             ]
         },
         "motor_13": {
@@ -133,8 +134,8 @@ spider_config = {
             "offset": 0.0,
             "orientation": "direct",
             "angle_limit": [
-                -89.88,
-                89.88
+                -150,
+                150
             ]
         },
         "motor_14": {
@@ -143,8 +144,8 @@ spider_config = {
             "offset": 0.0,
             "orientation": "direct",
             "angle_limit": [
-                -89.88,
-                89.88
+                -150,
+                150
             ]
         },
         "motor_15": {
@@ -153,8 +154,8 @@ spider_config = {
             "offset": 0.0,
             "orientation": "direct",
             "angle_limit": [
-                -89.88,
-                89.88
+                -150,
+                150
             ]
         },
         "motor_16": {
@@ -163,8 +164,8 @@ spider_config = {
             "offset": 0.0,
             "orientation": "direct",
             "angle_limit": [
-                -89.88,
-                89.88
+                -150,
+                150
             ]
         },
         "motor_17": {
@@ -173,8 +174,8 @@ spider_config = {
             "offset": 0.0,
             "orientation": "direct",
             "angle_limit": [
-                -89.88,
-                89.88
+                -150,
+                150
             ]
         },
         "motor_18": {
@@ -183,8 +184,8 @@ spider_config = {
             "offset": 0.0,
             "orientation": "direct",
             "angle_limit": [
-                -89.88,
-                89.88
+                -150,
+                150
             ]
         }        
     },

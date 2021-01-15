@@ -27,7 +27,7 @@ with closing(pypot.robot.from_config(spider_config)) as robot:
         m.compliant = False
         m.goto_position(0.0, 2.0, wait=True)
     print("zero done")
-    time.sleep(10)
+    time.sleep(60)
     print("Making compliant")
     for m in robot.leg1:
         m.compliant = True
@@ -41,5 +41,4 @@ with closing(pypot.robot.from_config(spider_config)) as robot:
         m.compliant = True
     for m in robot.leg6:
         m.compliant = True
-    time.sleep(10)
 print("Done")
