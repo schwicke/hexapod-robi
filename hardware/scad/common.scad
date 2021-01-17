@@ -166,8 +166,8 @@ module anchors_screws(x, y, w){
 module anchors(x, y, w){
   union(){
     difference(){
-      anchors_basic();
-      anchors_screws();
+      anchors_basic(x, y, w);
+      anchors_screws(x, y, w);
     }
   }
 }
