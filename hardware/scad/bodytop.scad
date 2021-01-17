@@ -59,16 +59,8 @@ module power_carveout(scale){
 difference(){
   union(){
     difference(){
-      scale([0.9,1.,1.]){
-        linear_extrude(height=thickness, center=true, convexity=0, twist=0, slices=10, scale=1.0){
-          resize([180, 230])circle(d=10, $fn=6);
-        }
-      }
-      scale([0.9*top_size_scaler,0.95*top_size_scaler,1.]){
-        linear_extrude(height=thickness+3, center=true, convexity=0, twist=0, slices=10, scale=1.0){
-          resize([180, 230])circle(d=10, $fn=6);
-        }
-      }
+      bodypart();
+      scale([top_size_scaler,top_size_scaler,1.2])bodypart();
       anchors_carveout(xleg, yleg, wleg);
      }
     // add the motor anchors

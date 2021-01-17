@@ -28,12 +28,12 @@ module sidepart_basic(){
       wleg = 20;       // Angle of the outer legs
       difference(){
         cube([90.0, 245.0, 31.8],center=true);
-        union(){
-          scale([0.9,1.,1.])linear_extrude(height=thickness, center=true, convexity=0, twist=0, slices=10, scale=1.0)resize([180, 230])circle(d=10, $fn=6);
-        // add the motor anchors
-          anchors(xleg, yleg, wleg);
-        }
+        //remove the body part
+        scale([1.1, 1, 1])bodypart();
+        // remove backward part 
         translate([0, -100, 0])cube([150, 50, thickness], center=true);
+        // remove anchors
+        anchors_basic(xleg, yleg, wleg);
       }
     }
   }
@@ -41,7 +41,6 @@ module sidepart_basic(){
 
 module sidepart(){
   translate([0, 5, 0]){sidepart_basic();}
-
   //support 4x
   translate([0, -5, 13.4]){
     difference(){
@@ -49,6 +48,8 @@ module sidepart(){
       translate([ 0, 0, 0])nuthole_mX(3);
       translate([ 16, 0, 0])nuthole_mX(3);
       translate([-16, 0, 0])nuthole_mX(3);
+      translate([ raster, 0, 2])nuthole_mX(2);
+      translate([-raster, 0, 2])nuthole_mX(2);
     }
   }
   translate([0, -5, -12.4]){
@@ -56,6 +57,8 @@ module sidepart(){
       cube([45, 10, 7], center=true);
       translate([ 16, 0, -1])screwhole_mX(3);
       translate([-16, 0, -1])screwhole_mX(3);
+      translate([ raster, 0, 2])nuthole_mX(2);
+      translate([-raster, 0, 2])nuthole_mX(2);
     }
   }
 }
