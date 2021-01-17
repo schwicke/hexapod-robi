@@ -36,18 +36,7 @@ difference(){
   }
   translate([0, 0, 2])cube([17, 10.1, 15], center=true);
 }
-
-//support 4x
-translate([0, -5, 14.4]){
-  difference(){
-    rotate([0, 180, 0])cube([47, 10, 3], center=true);
-    translate([ 0, 0, 0])nuthole_mX(3);
-    translate([ 16, 0, 0])nuthole_mX(3);
-    translate([-16, 0, 0])nuthole_mX(3);
-    translate([ raster, 0, 5])screwhole_mX(3);
-    translate([-raster, 0, 5])screwhole_mX(3);
-  }
-}
+// this we may be able to do better though ...
 translate([0, -5, -12.4]){
   difference(){
     union(){

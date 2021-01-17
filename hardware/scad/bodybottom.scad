@@ -118,11 +118,7 @@ module pi(){
 difference(){
   union(){
     difference(){
-      scale([0.9,1.,1.]){
-        linear_extrude(height=thickness, center=true, convexity=0, twist=0, slices=10, scale=1.0){
-          resize([180, 230])circle(d=10, $fn=6);
-        }
-      }
+      bodypart();
       anchors_carveout(xleg, yleg, wleg);
       // carve out the bits for the electronics
       // POWER boards and power boards

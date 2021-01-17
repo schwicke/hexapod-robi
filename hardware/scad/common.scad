@@ -49,7 +49,7 @@ euro_spacer_height = 3;
 euro_hole_dist = 4.0;
 
 // scaling the top board
-top_size_scaler = 0.8;
+top_size_scaler = 0.7;
 
 // leg definitions
 xleg = 40*0.95;  // position outer legs in x
@@ -93,18 +93,33 @@ module simple_screwhole_mX(d){
 }
 
 // design bits
-module anchor(){
-  difference(){
-    cube([40,30,thickness],center=true);
-    translate([0,-20,0])cube([20.1,40.1,6],center=true);
-    translate([ 8,     3.5,   0])screwhole_mX(2);
-    translate([-8,     3.5,   0])screwhole_mX(2);
-    translate([-13.5, -2.5,   0])screwhole_mX(2);
-    translate([-13.5, -10.5,  0])screwhole_mX(2);
-    translate([ 13.5, -2.5,   0])screwhole_mX(2);
-    translate([ 13.5, -10.5,  0])screwhole_mX(2);
-  }  
+module anchor_basic(){
+  union(){
+    difference(){
+      cube([40, 30, thickness],center=true);
+      translate([0, -20, 0])cube([20.1, 40.1, 6.0],center=true);
+    }
+  }
 }
+
+module anchor_screws(){
+  translate([ 8,     3.5,   0])screwhole_mX(2);
+  translate([-8,     3.5,   0])screwhole_mX(2);
+  translate([-13.5, -2.5,   0])screwhole_mX(2);
+  translate([-13.5, -10.5,  0])screwhole_mX(2);
+  translate([ 13.5, -2.5,   0])screwhole_mX(2);
+  translate([ 13.5, -10.5,  0])screwhole_mX(2);
+}
+
+module anchor(){
+  union(){
+    difference(){
+      anchor_basic();
+      anchor_screws();
+    }
+  }
+}
+
 
 module anchors_carveout(x, y, w){
   w1 = w;
@@ -126,15 +141,35 @@ module spacer_mX(d, height){
   }
 }
 
-module anchors(x, y, w){
+module anchors_basic(x, y, w){
   w1 = w;
   w2 = 180-w1;
-  translate([ 80,0, 0])rotate([0,0,90])anchor();
-  translate([-80,0, 0])rotate([0,0,-90])anchor();
-  translate([ x, y, 0])rotate([0,0,w1+90])anchor();
-  translate([-x,-y, 0])rotate([0,0,w1-90])anchor();
-  translate([ x,-y, 0])rotate([0,0,w2+270])anchor();
-  translate([-x, y, 0])rotate([0,0,w2+90])anchor();
+  translate([ 80,0, 0])rotate([0,0,90])anchor_basic();
+  translate([-80,0, 0])rotate([0,0,-90])anchor_basic();
+  translate([ x, y, 0])rotate([0,0,w1+90])anchor_basic();
+  translate([-x,-y, 0])rotate([0,0,w1-90])anchor_basic();
+  translate([ x,-y, 0])rotate([0,0,w2+270])anchor_basic();
+  translate([-x, y, 0])rotate([0,0,w2+90])anchor_basic();
+}
+
+module anchors_screws(x, y, w){
+  w1 = w;
+  w2 = 180-w1;
+  translate([ 80,0, 0])rotate([0,0,90])anchor_screws();
+  translate([-80,0, 0])rotate([0,0,-90])anchor_screws();
+  translate([ x, y, 0])rotate([0,0,w1+90])anchor_screws();
+  translate([-x,-y, 0])rotate([0,0,w1-90])anchor_screws();
+  translate([ x,-y, 0])rotate([0,0,w2+270])anchor_screws();
+  translate([-x, y, 0])rotate([0,0,w2+90])anchor_screws();
+}
+
+module anchors(x, y, w){
+  union(){
+    difference(){
+      anchors_basic();
+      anchors_screws();
+    }
+  }
 }
 
 module binder(){
@@ -152,3 +187,8 @@ module connector_hub_spacers(){
   translate([  hub_hole_distance/2, 0, 0])spacer_mX(hub_hole_diameter, hub_spacer_height);
 }
 
+module bodypart(){
+  scale([0.9,1.,1.]){
+    linear_extrude(height=thickness, center=true, convexity=0, twist=0, slices=10, scale=1.0)resize([180, 230])circle(d=10, $fn=6);
+  }
+}
