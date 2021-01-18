@@ -1,4 +1,21 @@
 #!/usr/bin/python3
+#
+# This file is part of the hexapod-robi distribution (https://github.com/schwicke/hexapod-robi).
+# Copyright (c) 2021 Ulrich Schwickerath
+#
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, version 3.
+#
+# This program is distributed in the hope that it will be useful, but
+# WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
+# General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program. If not, see <http://www.gnu.org/licenses/>.
+#
+
 import sys
 import time
 #pylint: disable=no-member
@@ -19,8 +36,8 @@ leg_groups = [[1, 3, 5],[2, 4, 6]]
 leg_zero_pos = [0, -70, -70]
 leg_up_pos = [None, -80, -50]
 leg_down_pos = [None, -70, -70]
-leg_forward_pos = [20, None, None]
-leg_backward_pos = [-20, None, None]
+leg_forward_pos = [10, None, None]
+leg_backward_pos = [-10, None, None]
 
 def _define_motor_hash(legs, positions):
     """ legs: list of legs, position: list of 3 values  """
@@ -67,7 +84,7 @@ def set_speed(speed=50):
     m.set_moving_speed(leg_groups_speed[0])
     m.set_moving_speed(leg_groups_speed[1])
     
-def walk(steps, delay=0.5, speed=50):
+def walk_forward(steps, delay=0.5, speed=50):
     zero(delay)
     for i in range(steps):
         for group in range(2):
@@ -79,9 +96,27 @@ def walk(steps, delay=0.5, speed=50):
             time.sleep(delay)
             m.set_goal_position(leg_groups_down[group])
             time.sleep(delay)
+
+def walk_backward(steps, delay=0.5, speed=50):
+    zero(delay)
+    for i in range(steps):
+        for group in range(2):
+            m.set_goal_position(leg_groups_up[group])
+            time.sleep(delay)
+            m.set_goal_position(leg_groups_forward[1-group])
+            time.sleep(delay)
+            m.set_goal_position(leg_groups_backward[group])
+            time.sleep(delay)
+            m.set_goal_position(leg_groups_down[group])
+            time.sleep(delay)
             
-set_speed(100)
+
+set_speed(50)
 zero(0.1)
+steps = 5
+wait = 0.2
+speed = 500
 time.sleep(1)
-walk(7, 0.1, speed=100)
+walk_forward(steps,  wait, speed)
+walk_backward(steps, wait, speed)
 zero(0.1)
