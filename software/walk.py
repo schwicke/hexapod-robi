@@ -16,11 +16,11 @@ leg_motor_speed = [50, 50, 50]
 leg_groups = [[1, 3, 5],[2, 4, 6]]
 
 # define positions
-leg_zero_pos = [0, -70, -70]
-leg_up_pos = [None, -80, -50]
-leg_down_pos = [None, -70, -70]
-leg_forward_pos = [20, None, None]
-leg_backward_pos = [-20, None, None]
+leg_zero_pos = [0, -80, -80]
+leg_up_pos = [None, -89, -40]
+leg_down_pos = [None, -80, -80]
+leg_forward_pos = [10, None, None]
+leg_backward_pos = [-10, None, None]
 
 def _define_motor_hash(legs, positions):
     """ legs: list of legs, position: list of 3 values  """
@@ -67,7 +67,7 @@ def set_speed(speed=50):
     m.set_moving_speed(leg_groups_speed[0])
     m.set_moving_speed(leg_groups_speed[1])
     
-def walk(steps, delay=0.5, speed=50):
+def walk_forward(steps, delay=0.5, speed=50):
     zero(delay)
     for i in range(steps):
         for group in range(2):
@@ -79,9 +79,25 @@ def walk(steps, delay=0.5, speed=50):
             time.sleep(delay)
             m.set_goal_position(leg_groups_down[group])
             time.sleep(delay)
+
+def walk_backward(steps, delay=0.5, speed=50):
+    zero(delay)
+    for i in range(steps):
+        for group in range(2):
+            m.set_goal_position(leg_groups_up[group])
+            time.sleep(delay)
+            m.set_goal_position(leg_groups_forward[1-group])
+            time.sleep(delay)
+            m.set_goal_position(leg_groups_backward[group])
+            time.sleep(delay)
+            m.set_goal_position(leg_groups_down[group])
+            time.sleep(delay)
             
-set_speed(100)
+
+set_speed(50)
 zero(0.1)
+sys.exit(0)
 time.sleep(1)
-walk(7, 0.1, speed=100)
+walk_forward(7, 0.4, speed=500)
+walk_backward(7, 0.4, speed=500)
 zero(0.1)
