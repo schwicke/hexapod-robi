@@ -1,4 +1,21 @@
 #!/usr/bin/python3
+#
+# This file is part of the hexapod-robi distribution (https://github.com/schwicke/hexapod-robi).
+# Copyright (c) 2021 Ulrich Schwickerath
+#
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, version 3.
+#
+# This program is distributed in the hope that it will be useful, but
+# WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
+# General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program. If not, see <http://www.gnu.org/licenses/>.
+#
+
 import sys
 import time
 #pylint: disable=no-member
@@ -16,9 +33,9 @@ leg_motor_speed = [50, 50, 50]
 leg_groups = [[1, 3, 5],[2, 4, 6]]
 
 # define positions
-leg_zero_pos = [0, -80, -80]
-leg_up_pos = [None, -89, -40]
-leg_down_pos = [None, -80, -80]
+leg_zero_pos = [0, -70, -70]
+leg_up_pos = [None, -80, -50]
+leg_down_pos = [None, -70, -70]
 leg_forward_pos = [10, None, None]
 leg_backward_pos = [-10, None, None]
 
@@ -96,8 +113,10 @@ def walk_backward(steps, delay=0.5, speed=50):
 
 set_speed(50)
 zero(0.1)
-sys.exit(0)
+steps = 5
+wait = 0.2
+speed = 500
 time.sleep(1)
-walk_forward(7, 0.4, speed=500)
-walk_backward(7, 0.4, speed=500)
+walk_forward(steps,  wait, speed)
+walk_backward(steps, wait, speed)
 zero(0.1)
