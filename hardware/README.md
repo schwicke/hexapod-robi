@@ -33,7 +33,7 @@ Screws:
 ### Voltage converter
 A voltage converter is used to provide the required 5V power used by the Raspberry-Pi. The 5V output current is provided via a USB plug, and a short USB 2 to USBC cable is used to connect the two.
 
-![Circuits used](converter.png)
+![Circuits used](converter.svg)
 
 For the voltage converter is built on a PCB perfboard with dimensions 40x60mm. The regulator IC needs an sufficiently sized heat sink.Using a voltage converter has the advantage that a single power supply of 12V can be used to power the hole robot. In a later version, this may be replaced by a 11.2V Lithium Polymere battery.
 Here's a close-up image of how it looks like in reality:
