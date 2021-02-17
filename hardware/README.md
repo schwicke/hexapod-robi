@@ -25,16 +25,19 @@ Screws:
 * M2.5 (8mm) screws, nuts and washers
 * M3 screws and washers
 
+The Molex P3 plugs are soldered on bits of a PCB perfboard,  3 in pairs of 3 and 2 in pairs of 2 are needed. The pins are to be paired up, like this:
+![3x motor connector](3x_hub.svg)
+The plugs are inserted into the holes in the bottom part of the robot and fixed with screws with the help of the printed connector boxes.
+
+
 ## Electronics
 * 1x Robotis U2D2 board
 * 1x Raspberry-Pi 4 with 16GB or 32GB SSD car
 * 1x Voltage converter 12V -> 5V 3A, see below
 
-### Voltage converter
+## Voltage converter
 A voltage converter is used to provide the required 5V power used by the Raspberry-Pi. The 5V output current is provided via a USB plug, and a short USB 2 to USBC cable is used to connect the two.
-
 ![Circuits used](converter.svg)
-
 For the voltage converter is built on a PCB perfboard with dimensions 40x60mm. The regulator IC needs an sufficiently sized heat sink.Using a voltage converter has the advantage that a single power supply of 12V can be used to power the hole robot. In a later version, this may be replaced by a 11.2V Lithium Polymere battery.
 Here's a close-up image of how it looks like in reality:
 ![Power converter with heat sink](voltage_regulator.jpg)
