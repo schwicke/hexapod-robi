@@ -178,11 +178,11 @@ difference(){
   translate([-55,-15, 0])binder();
 
   // add holes to fix connection hubs
-  translate([  0, 95, 0])connector_hub();
-  translate([-23,-93, 0])rotate([ 0, 0, 90+18])connector_hub();
-  translate([ 23,-93, 0])rotate([ 0, 0, 90-18])connector_hub();
-  translate([-65, 0,  0])rotate([ 0, 0, 90])connector_hub();
-  translate([ 65, 0,  0])rotate([ 0, 0, 90])connector_hub();
+  translate([  0, 95, 0])connector_hub(3);
+  translate([-23,-93, 0])rotate([ 0, 0, 90+18])connector_hub(2);
+  translate([ 23,-93, 0])rotate([ 0, 0, 90-18])connector_hub(2);
+  translate([-65, 0,  0])rotate([ 0, 0, 90])connector_hub(3);
+  translate([ 65, 0,  0])rotate([ 0, 0, 90])connector_hub(3);
   //
   translate([-power_pos_x-5, power_pos_y, 0])pcb_nuts(pcb_x_size, pcb_y_size, 2.5, 1);
 }
