@@ -177,9 +177,10 @@ module binder(){
  translate([ binder_dist/2, 0, 0])cube([2, 3, 50], center=true);
 }
 
-module connector_hub(){
-  translate([ hub_hole_distance/2, 0, 0])nuthole_mX(hub_hole_diameter);
-  translate([-hub_hole_distance/2, 0, 0])nuthole_mX(hub_hole_diameter);
+module connector_hub(n){
+  translate([ hub_hole_distance/2, 0, 0])simple_screwhole_mX(hub_hole_diameter);
+  translate([-hub_hole_distance/2, 0, 0])simple_screwhole_mX(hub_hole_diameter);
+  cube([n*hub_x+0.1, hub_y+0.1, 20], center=true);
 }
 
 module connector_hub_spacers(){
