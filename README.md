@@ -8,3 +8,5 @@ The longer term goal is to equip this robot with various additional sensors, giv
 
 ![First steps of the prototype](media/20210205_073955.jpg)
 
+## Prototype hardware
+A description of the hardware can be found in in the [hardware folder](hardware/README.md). The (still PoC level) software is available [here](software/README.md).
