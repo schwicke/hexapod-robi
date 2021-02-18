@@ -25,11 +25,14 @@ Screws:
 * M2.5 (8mm) screws, nuts and washers
 * M3 screws and washers
 
-The Molex P3 plugs are soldered on bits of a PCB perfboard,  3 in pairs of 3 and 2 in pairs of 2 are needed. The pins are to be paired up, like this:
+### Motor connectors
+Connecting the motors is a bit tricky due to the length of the available cables. Therefore, in front of roughly each leg there we added additional P3 plugs which help reducing the cable lengths.
+The bottom part of the robot has holes forseen for these hubs. To create them, the Molex P3 plugs are soldered on small bits of a PCB perfboard, 3 in pairs of 3 and 2 in pairs of 2 are needed. The pins are to be paired up, like this:
 
 ![3x motor connector](3x_hub.svg)
 
-The plugs are inserted into the holes in the bottom part of the robot and fixed with screws with the help of the printed connector boxes.
+The plugs are then inserted into the holes into the bottom part of the robot from below, and fixed with screws with the help of the printed connector boxes. A power distirbution hub seen from below the robot looks like this:
+![Power hub from below](hubbox_below.png)
 
 
 ## Electronics
