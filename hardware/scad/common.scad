@@ -36,7 +36,7 @@ pcb_x_size = 40;
 pcb_y_size = 60;
 
 // RapsberryPi 4 case dimensions
-pi_pos_x = 0;
+pi_pos_x = -5;
 pi_pos_y = -40;
 pi_frame_height = 5;
 pi_spacer_height = 2;

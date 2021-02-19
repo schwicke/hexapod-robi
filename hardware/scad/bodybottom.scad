@@ -66,7 +66,7 @@ module pi_carveout(){
 }
 
 module pi_sdcard(min_size){
-  translate([44,0,0])cube([2*thickness, 20, 10*min_size], center=true);
+  translate([46, 0, 0])cube([3.0*thickness, 20, 10*min_size], center=true);
 }
 
 module pi_frame(height){
