@@ -17,37 +17,23 @@
 // This is a little plastic bit which is intended to get the holes for the connectors
 // at the right position. It's not part of the robot itself, but useful for building it.
 //
-//
-// all distances are in mm
-//
 
-// Define some globals used at various places
-raster=2.54;
+// helpers to create several floors on the robot
+include <../lib/globals.scad>
 
-// motor height
-space = 42.0;
+// ensure that we have a solid base to put the screws in
+module mount_plate(){
+     wx = 4*raster+raster/2;
+     wy = 8*raster+raster/2;
+     wyp = (wy-m3s_nut_width)/4.0;
+     translate([-wx/2, -wy/2, -thickness/2])cube([wx, wy, thickness]);
+}
 
-// wall thickness
-thickness = 4;
-
-// battery box
-batt_thickness = 3;
-batt_x = 50;
-batt_y = 160;
-batt_z = 25;
-
-// binder distance
-binder_dist = 3.5;
-
-// mount position base
-base_mount_pos_x = batt_x/2+2*batt_thickness+0.5;
-
-// dimensions for hubs for motor cabling
-hub_hole_diameter = 2;
-hub_spacer_height = 2;
-hub_x = 4.9;
-hub_y = 9.9;
-
-module anchorbox(size){
-     cube([40, 30, size],center=true);
+// drill the holes ... to be used in a difference() directive
+module mount_holes(){
+     wx = 4*raster+raster/2;
+     wy = 8*raster+raster/2;
+     wyp = (wy-m3s_nut_width)/4.0;     
+     translate([0, -wy/4, -6])screwhole_mX_basic(3, 50, 1);
+     translate([0, +wy/4, -6])screwhole_mX_basic(3, 50, 1);
 }
