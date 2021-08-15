@@ -27,8 +27,8 @@ translate([0, 5, 0]){
                difference(){
                     sidepart();
                     // switches
-                    translate([10, -20, -9])cube([switch_x+0.2, 50, switch_z+0.2]);
-                    translate([1.7-(2*switch_x),-20,-9])cube([switch_x+0.2, 50, switch_z+0.2]);
+                    translate([10, -20, -9])cube([switch_x+0.1, 50, switch_z+0.1]);
+                    translate([1.7-(2*switch_x),-20,-9])cube([switch_x+0.1, 50, switch_z+0.1]);
                     // power connector
                     translate([-5, -20, -4])cube([9.2, 50, 11.2]);
                }
@@ -43,8 +43,8 @@ translate([0, -5, hight/2-thickness_top/2]){
           //translate([ 0, 0, 0])nuthole_mX(3);
           translate([ 16, 0, 0]) nuthole_mX(3);
           translate([-16, 0, 0]) nuthole_mX(3);
-          translate([ raster, 0, 5]) my_screwhole_mX(3);
-          translate([-raster, 0, 5]) my_screwhole_mX(3);
+          translate([ 3*raster, 0, 5]) my_screwhole_mX(3);
+          translate([-3*raster, 0, 5]) my_screwhole_mX(3);
      }
 }
 
@@ -61,7 +61,7 @@ translate([0, -5, -hight/2+thickness_bottom/2]){
           }
           translate([ 16, 0, 0]) my_screwhole_mX(3);
           translate([-16, 0, 0]) my_screwhole_mX(3);
-          translate([ raster, 0, 2]) nuthole_mX(2);
-          translate([-raster, 0, 2]) nuthole_mX(2);
+          translate([ 3*raster, 0, 2]) nuthole_mX(2);
+          translate([-3*raster, 0, 2]) nuthole_mX(2);
      }
 }
