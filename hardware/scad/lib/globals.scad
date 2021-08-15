@@ -40,7 +40,7 @@ batt_z = 25;
 binder_dist = 3.5;
 
 // mount position base
-base_mount_pos_x = batt_x/2+2*batt_thickness+0.5;
+base_mount_pos_x = batt_x/2+2*batt_thickness+1.5;
 
 // dimensions for hubs for motor cabling
 hub_hole_diameter = 2;
