@@ -137,6 +137,9 @@ module pi_frame(height){
 
 module pi(){
      pi_frame(pi_frame_height);
+     holespace_x = 29.0;
+     holespace_y = 24.5;
+     displace_x = 10;
      difference(){
           union(){
                translate([0, -25, 0])cube([105, 10, thickness], center=true);
@@ -144,16 +147,16 @@ module pi(){
                translate([45,  0, 0])cube([5, 40, thickness], center=true);
                translate([-45,  0, 0])cube([5, 40, thickness], center=true);
           }
-          translate([ 29, 24.5, 0])my_screwhole_mX(2.5);
-          translate([-29, 24.5, 0])my_screwhole_mX(2.5);
-          translate([ 29,-24.5, 0])my_screwhole_mX(2.5);
-          translate([-29,-24.5, 0])my_screwhole_mX(2.5);
+          translate([ holespace_x+displace_x, holespace_y, 5])my_screwhole_mX(2.5);
+          translate([-holespace_x+displace_x, holespace_y, 5])my_screwhole_mX(2.5);
+          translate([ holespace_x+displace_x,-holespace_y, 5])my_screwhole_mX(2.5);
+          translate([-holespace_x+displace_x,-holespace_y, 5])my_screwhole_mX(2.5);
      }
      // add spacers
-     translate([ 29, 24.5, 0])spacer_mX(2.5, pi_spacer_height);
-     translate([-29, 24.5, 0])spacer_mX(2.5, pi_spacer_height);
-     translate([ 29,-24.5, 0])spacer_mX(2.5, pi_spacer_height);
-     translate([-29,-24.5, 0])spacer_mX(2.5, pi_spacer_height);
+     translate([ holespace_x+displace_x, holespace_y, 0])spacer_mX(2.5, pi_spacer_height);
+     translate([-holespace_x+displace_x, holespace_y, 0])spacer_mX(2.5, pi_spacer_height);
+     translate([ holespace_x+displace_x,-holespace_y, 0])spacer_mX(2.5, pi_spacer_height);
+     translate([-holespace_x+displace_x,-holespace_y, 0])spacer_mX(2.5, pi_spacer_height);
 }
 
 module mount(){
@@ -196,9 +199,6 @@ module bodymiddle(){
                anchors(xleg, yleg, wleg, thickness);
                // add text
                translate([-18, -103, thickness/2])scale([0.5, 0.5, 1.0])linear_extrude(height=1, center=true, convexity=0, twist=0, slices=10, scale=1.0)text("this way up");
-               // eurocard holders
-               //eurocard_holders();
-               //translate([0, -5, 0])breadboard();
           }
           // add some screwholes
           translate([0, -110, 1])my_screwhole_mX(3);
