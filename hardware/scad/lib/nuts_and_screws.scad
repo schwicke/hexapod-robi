@@ -19,7 +19,7 @@
 //
 // m3s nuts dimensions
 m3s_screwdim = 3; // m3 screws
-m3s_delta = 0.4;
+m3s_delta = 0.2;
 m3s_nut_width = 5.4+m3s_delta;
 m3s_nut_hight = 2.4+m3s_delta;
 
