@@ -40,7 +40,7 @@ module battery_box(){
      difference(){
           translate([0, 0, batt_z/2+batt_thickness-3.0])cube([batt_x+batt_thickness, batt_y+batt_thickness, batt_z+batt_thickness], center=true);
           translate([0, 0, batt_z/2+3*batt_thickness-6.0])cube([batt_x, batt_y, batt_z+batt_thickness], center=true);
-          translate([0, -batt_y/2, batt_z/2+3*batt_thickness-3])cube([batt_x-10, batt_y-10, batt_z+batt_thickness], center=true);
+          translate([0, -batt_y/2, batt_z/2+3*batt_thickness-3])cube([batt_x-1, batt_y-10, batt_z+batt_thickness], center=true);
      }
 }
 // create the body part
@@ -85,7 +85,7 @@ module bodypart(){
           translate([-40,-75, 0])rotate([0, 0, +18])binder();
 
           // add holes to fix connection hubs
-          translate([  0, 95, 0])connector_hub(3);
+          translate([  0, 95, 0])connector_hub(5);
           translate([-23,-93, 0])rotate([ 0, 0, 90+18])connector_hub(2);
           translate([ 23,-93, 0])rotate([ 0, 0, 90-18])connector_hub(2);
           translate([-65, 0,  0])rotate([ 0, 0, 90])connector_hub(3);
