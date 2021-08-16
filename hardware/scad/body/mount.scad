@@ -24,10 +24,10 @@ include <../lib/nuts_and_screws.scad>
 wx = 4*raster+raster/2;
 wy = 8*raster+raster/2;
 wyp = (wy-m3s_nut_width)/4.0;
+
 module mount(){
-     //translate([0., 0., space/2  ])cube([10, 20, space+thickness/2], center=true);
      difference(){
-          translate([-wx/2, -wy/2, 0])cube([wx, wy, space+thickness/2]);
+          translate([-wx/2, -wy/2, 0])cube([wx, wy, space]);
           // holes
           translate([0, -wy/4, space+10])cylinder(h=50, r=m3s_screwdim/2+0.1, center=true, $fn=50);
           translate([0, +wy/4, space+10])cylinder(h=50, r=m3s_screwdim/2+0.1, center=true, $fn=50);

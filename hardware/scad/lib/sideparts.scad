@@ -25,7 +25,7 @@ reset_d = 17;
 thickness_top=5;
 thickness_bottom=7;
 over_thickness = 150;
-hight=space+0.2; // determined by the motor dimensions FIXME ???
+hight=space-0.2; // determined by the motor dimensions
 
 
 module anchor(size){
