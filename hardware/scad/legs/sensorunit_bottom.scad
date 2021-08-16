@@ -20,7 +20,7 @@
 include <../lib/globals.scad>;
 include <../lib/nuts_and_screws.scad>;
 
-z=50;
+z=30;
 rad=6;
 fn=150;
 module leg(){
