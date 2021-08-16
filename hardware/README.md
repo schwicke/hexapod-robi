@@ -10,7 +10,7 @@ Plastic parts:
 * 6 legs (6x leg.stl)
 * 1x bodybottom.stl
 * 1x bodytop.stl
-* 5x connector_boxes.stl
+* 1x connector_boxes.stl (contains several boxes of different size)
 * 1x side_buttons.stl
 * 1x side_power.stl
 
@@ -36,9 +36,17 @@ The plugs are then inserted into the holes into the bottom part of the robot fro
 
 
 ## Electronics
+### Basics:
 * 1x Robotis U2D2 board
 * 1x Raspberry-Pi 4 with 16GB or 32GB SSD car
-* 1x Voltage converter 12V -> 5V 3A, see below
+* power supply:
+   * 1x Voltage converter 12V -> 5V 3A, see below
+   * Alternative: Stompi board (with or without battery)
+### suggesteed sensors:
+* Raspberry-Py camera
+* HC-SR04 Ultrasonic sensor
+* MPU6050 sensor
+* 6x RP-C10-ST pressure sensores for the legs
 
 ## Voltage converter
 A voltage converter is used to provide the required 5V power used by the Raspberry-Pi. The 5V output current is provided via a USB plug, and a short USB 2 to USBC cable is used to connect the two.
