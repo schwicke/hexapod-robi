@@ -1,5 +1,4 @@
 #!/usr/bin/python3
-""" sample script to make it walk """
 #
 # This file is part of the hexapod-robi distribution (https://github.com/schwicke/hexapod-robi).
 # Copyright (c) 2021 Ulrich Schwickerath
@@ -16,19 +15,20 @@
 # You should have received a copy of the GNU General Public License
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 #
-
+""" PoC move primitives """
 import sys
 import time
 #pylint: disable=no-member
 from pypot import dynamixel
 
 ALL_MOTORS = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18]
-MOTOR = dynamixel.io.io.DxlIO(dynamixel.find_port(ALL_MOTORS), use_sync_read=False)
+PORT = dynamixel.find_port(ALL_MOTORS)
+MOTOR = dynamixel.io.io.DxlIO(PORT, use_sync_read=False)
 
-#print(m.get_angle_limit(MOTORS))
-#print(m.get_control_mode(MOTORS))
-#print(m.get_firmware(MOTORS))
-#print(m.get_present_temperature(MOTORS))
+#print(m.get_angle_limit(ALL_MOTORS))
+#print(m.get_control_mode(ALL_MOTORS))
+#print(m.get_firmware(ALL_MOTORS))
+#print(m.get_present_temperature(ALL_MOTORS))
 print(MOTOR.get_present_speed(ALL_MOTORS))
 
 LEG_MOTOR_SPEED = [50, 50, 50]
@@ -46,14 +46,14 @@ def _define_motor_hash(legs, positions):
     """ legs: list of legs, position: list of 3 values  """
     res_hash = {}
     for leg in legs:
-        for i in range(3):
-            mindex = 3*(leg-1)+i + 1
-            if positions[i] is not None:
-                if mindex in [10, 13, 16] and i == 0:
-                    res_hash[mindex] = -positions[i]
+        for index in range(3):
+            mindex = 3*(leg-1)+index + 1
+            if positions[index] is not None:
+                if mindex in [10, 13, 16] and index == 0:
+                    res_hash[mindex] = -positions[index]
                 else:
-                    res_hash[mindex] = positions[i]
-    return hash
+                    res_hash[mindex] = positions[index]
+    return res_hash
 
 LEG_GROUPS_SPEED = [_define_motor_hash(LEG_GROUPS[0], LEG_MOTOR_SPEED),
                     _define_motor_hash(LEG_GROUPS[1], LEG_MOTOR_SPEED)]
@@ -69,15 +69,6 @@ LEG_GROUPS_BACKWARD = [_define_motor_hash(LEG_GROUPS[0], LEG_BACKWARD_POS),
                        _define_motor_hash(LEG_GROUPS[1], LEG_BACKWARD_POS)]
 LEG_GROUPS_SIT = [_define_motor_hash(LEG_GROUPS[0], LEG_SIT_POS),
                   _define_motor_hash(LEG_GROUPS[1], LEG_SIT_POS)]
-
-MOTOR.set_moving_SPEED(LEG_GROUPS_SPEED[0])
-MOTOR.set_moving_SPEED(LEG_GROUPS_SPEED[1])
-
-MOTOR.set_goal_position(LEG_GROUPS_ZERO[0])
-MOTOR.set_goal_position(LEG_GROUPS_ZERO[1])
-
-print(LEG_GROUPS_SPEED)
-print(MOTOR.get_moving_SPEED(ALL_MOTORS))
 
 def zero():
     """ set all MOTORS to zero """
