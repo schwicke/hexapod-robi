@@ -6,7 +6,7 @@ The aim of this personal toy project is the creation of a fully self-designed an
 * Software based on the pypod library.
 The longer term goal is to equip this robot with various additional sensors, giving feedback about the environment and orientation of the robot.
 
-![First steps of the prototype](media/20210205_073955.jpg)
+![First steps of the prototype](media/20210815_222941.jpg)
 
 ## Prototype hardware
 A description of the hardware can be found in in the [hardware folder](hardware/README.md). 
