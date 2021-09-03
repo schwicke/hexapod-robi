@@ -41,7 +41,7 @@ pi_displace_x = 10;
 
 // electronics
 move = -40;
-power_pos_x = 25;
+power_pos_x = 25+7;
 power_pos_y = 40+move;
 power_spacer_height = 3;
 power_converter_scale = 0.7;
@@ -60,28 +60,33 @@ batt_thickness = 3;
 
 module pcb_spacers(x, y, d, mode){
   // spacers
-  translate([ x/2-pcb_hole_dist,  y/2-pcb_hole_dist, 0])spacer_mX(d, pcb_spacer_height);
-  translate([ x/2-pcb_hole_dist, -y/2+pcb_hole_dist, 0])spacer_mX(d, pcb_spacer_height);
-  translate([-x/2+pcb_hole_dist,  y/2-pcb_hole_dist, 0])spacer_mX(d, pcb_spacer_height);
-  translate([-x/2+pcb_hole_dist, -y/2+pcb_hole_dist, 0])spacer_mX(d, pcb_spacer_height);
+  rotate([0, 0, 90]){
+    translate([ x/2-pcb_hole_dist,  y/2-pcb_hole_dist, 0])spacer_mX(d, pcb_spacer_height);
+    translate([ x/2-pcb_hole_dist, -y/2+pcb_hole_dist, 0])spacer_mX(d, pcb_spacer_height);
+    translate([-x/2+pcb_hole_dist,  y/2-pcb_hole_dist, 0])spacer_mX(d, pcb_spacer_height);
+    translate([-x/2+pcb_hole_dist, -y/2+pcb_hole_dist, 0])spacer_mX(d, pcb_spacer_height);
+  }
 }
 
 module pcb_holes(x, y, d, mode){
-  translate([-power_pos_x-5, power_pos_y, 0])
-    union(){
-    translate([ x/2-pcb_hole_dist,  y/2-pcb_hole_dist, 0])if (mode==0) my_screwhole_mX(d); else nuthole_mX(d);
-    translate([ x/2-pcb_hole_dist, -y/2+pcb_hole_dist, 0])if (mode==0) my_screwhole_mX(d); else nuthole_mX(d);
-    translate([-x/2+pcb_hole_dist,  y/2-pcb_hole_dist, 0])if (mode==0) my_screwhole_mX(d); else nuthole_mX(d);
-    translate([-x/2+pcb_hole_dist, -y/2+pcb_hole_dist, 0])if (mode==0) my_screwhole_mX(d); else nuthole_mX(d);
+  translate([-power_pos_x, power_pos_y, 0]){
+    rotate([0, 0, 90]){
+      translate([ x/2-pcb_hole_dist,  y/2-pcb_hole_dist, 0])if (mode==0) my_screwhole_mX(d); else nuthole_mX(d);
+      translate([ x/2-pcb_hole_dist, -y/2+pcb_hole_dist, 0])if (mode==0) my_screwhole_mX(d); else nuthole_mX(d);
+      translate([-x/2+pcb_hole_dist,  y/2-pcb_hole_dist, 0])if (mode==0) my_screwhole_mX(d); else nuthole_mX(d);
+      translate([-x/2+pcb_hole_dist, -y/2+pcb_hole_dist, 0])if (mode==0) my_screwhole_mX(d); else nuthole_mX(d);
+    }
   }
 }
 
 module power_spacers(scale, d, mode){
   // add spacers
-  translate([ 24*scale, 21*scale, 0])spacer_mX(d, power_spacer_height);
-  translate([-24*scale, 21*scale, 0])spacer_mX(d, power_spacer_height);
-  translate([ 24*scale,-21*scale, 0])spacer_mX(d, power_spacer_height);
-  translate([-24*scale,-21*scale, 0])spacer_mX(d, power_spacer_height);
+  translate([power_pos_x, power_pos_y, 0]){
+    translate([ 24*scale, 21*scale, 0])spacer_mX(d, power_spacer_height);
+    translate([-24*scale, 21*scale, 0])spacer_mX(d, power_spacer_height);
+    translate([ 24*scale,-21*scale, 0])spacer_mX(d, power_spacer_height);
+    translate([-24*scale,-21*scale, 0])spacer_mX(d, power_spacer_height);
+  }
 }
 
 module power_holes(scale, d, mode){
@@ -168,17 +173,17 @@ module bodymiddle(){
   difference(){
     union(){
       difference(){
-	scale([0.9,1.,1.]){
+        scale([0.9,1.,1.]){
           linear_extrude(height=thickness, center=true, convexity=0, twist=0, slices=10, scale=1.0){
-	    resize([180, 230])circle(d=10, $fn=6);
-	  }
-	}
-	scale([0.9*top_size_scaler,0.95*top_size_scaler,1.]){
-	  linear_extrude(height=thickness+3, center=true, convexity=0, twist=0, slices=10, scale=1.0){
-	    resize([180, 230])circle(d=10, $fn=6);
-	  }
-	}
-	anchors_carveout(xleg, yleg, wleg);
+            resize([180, 230])circle(d=10, $fn=6);
+          }
+        }
+        scale([0.9*top_size_scaler,0.95*top_size_scaler,1.]){
+            linear_extrude(height=thickness+3, center=true, convexity=0, twist=0, slices=10, scale=1.0){
+            resize([180, 230])circle(d=10, $fn=6);
+          }
+        }
+      anchors_carveout(xleg, yleg, wleg);
       }
       // add the motor anchors
       anchors(xleg, yleg, wleg, thickness);
@@ -197,8 +202,8 @@ module bodymiddle(){
   translate([-base_mount_pos_x, 0, 0])mount();
   translate([+base_mount_pos_x, 0, 0])mount();
   // supports and spacers for u2d2 and power converters
-  translate([-power_pos_x-5, power_pos_y, 0])pcb_spacers(pcb_x_size, pcb_y_size, 2.5, 1);
-  translate([power_pos_x, power_pos_y, 0])power_spacers(1, 3, 0);
+  translate([-power_pos_x, power_pos_y, 0])pcb_spacers(pcb_x_size, pcb_y_size, 2.5, 1);
+  power_spacers(1, 3, 0);
   // add raspberrypie
   translate([pi_pos_x, pi_pos_y, 0]){
     rotate([0, 0, 180])
@@ -212,8 +217,8 @@ module bodymiddle(){
 difference(){
   union(){
     bodymiddle();
-    translate([0, -17, 0])cube([120, 10, thickness], center=true);
-    translate([0, 30, 0])cube([120, 10, thickness], center=true);
+    translate([0, -20, 0])cube([120, 10, thickness], center=true);
+    translate([0, 25, 0])cube([120, 10, thickness], center=true);
     translate([2*power_pos_x-1.5, power_pos_y, 0.0])cube([10, 70, thickness], center=true);
     translate([0.5, 0, 0.0])cube([10, 60, thickness], center=true);
     translate([-12, 0, 0.0])cube([10, 70, thickness], center=true);
