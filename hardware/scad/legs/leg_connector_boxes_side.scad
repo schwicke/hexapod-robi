@@ -35,19 +35,19 @@ module connector_hub(){
 module box(dist){
      length=38;
      width=14;
-     height=10;
+     height=13.5;
      thickness=2.5;
      difference(){
           cube([length, width, height], center=true);
           //carve out to create a box
           translate([0, 0, 2.5])cube([length-thickness, width-thickness, height], center=true);
           //carve out for the sensor
-          translate([0, hub_y, 4])cube([2*hub_x, 2*hub_y, 4], center=true);
+          translate([0, hub_y, 5.4])cube([2*hub_x, 2*hub_y+0.1, 4], center=true);
           // connector hole
-          #translate([0, -10, 2])rotate([90, 0, 0])cube([hub_x+0.1, hub_y+0.1, 20], center=true);
+          translate([0, -10, 2.0])rotate([90, 0, 0])cube([hub_x+0.1, hub_y+5, 20], center=true);
      }
-     translate([-dist, 0, 0])cylinder(h=5, r=3, center=true, $fn=50);
-     translate([+dist, 0, 0])cylinder(h=5, r=3, center=true, $fn=50);
+     translate([-dist, 0, -1.5])cylinder(h=8, r=3, center=true, $fn=50);
+     translate([+dist, 0, -1.5])cylinder(h=8, r=3, center=true, $fn=50);
 }
 
 difference(){
