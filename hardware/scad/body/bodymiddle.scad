@@ -40,9 +40,8 @@ pi_displace_x = 10;
 // aux out d=7mm
 
 // electronics
-move = -40;
-power_pos_x = 25+7;
-power_pos_y = 40+move;
+power_pos_x = 25;
+power_pos_y = 58;
 power_spacer_height = 3;
 power_converter_scale = 0.7;
 //
@@ -58,25 +57,26 @@ batt_y = 160;
 batt_z = 25;
 batt_thickness = 3;
 
+// disk
+ssd_x = 75.0;
+ssd_y = 57.0;
+ssd_z = 11.2;
+
 module pcb_spacers(x, y, d, mode){
-  // spacers
-  rotate([0, 0, 90]){
-    translate([ x/2-pcb_hole_dist,  y/2-pcb_hole_dist, 0])spacer_mX(d, pcb_spacer_height);
-    translate([ x/2-pcb_hole_dist, -y/2+pcb_hole_dist, 0])spacer_mX(d, pcb_spacer_height);
-    translate([-x/2+pcb_hole_dist,  y/2-pcb_hole_dist, 0])spacer_mX(d, pcb_spacer_height);
-    translate([-x/2+pcb_hole_dist, -y/2+pcb_hole_dist, 0])spacer_mX(d, pcb_spacer_height);
-  }
+     // spacers
+     translate([ x/2-pcb_hole_dist,  y/2-pcb_hole_dist, 0])spacer_mX(d, pcb_spacer_height);
+     translate([ x/2-pcb_hole_dist, -y/2+pcb_hole_dist, 0])spacer_mX(d, pcb_spacer_height);
+     translate([-x/2+pcb_hole_dist,  y/2-pcb_hole_dist, 0])spacer_mX(d, pcb_spacer_height);
+     translate([-x/2+pcb_hole_dist, -y/2+pcb_hole_dist, 0])spacer_mX(d, pcb_spacer_height);
 }
 
 module pcb_holes(x, y, d, mode){
-  translate([-power_pos_x, power_pos_y, 0]){
-    rotate([0, 0, 90]){
-      translate([ x/2-pcb_hole_dist,  y/2-pcb_hole_dist, 0])if (mode==0) my_screwhole_mX(d); else nuthole_mX(d);
-      translate([ x/2-pcb_hole_dist, -y/2+pcb_hole_dist, 0])if (mode==0) my_screwhole_mX(d); else nuthole_mX(d);
-      translate([-x/2+pcb_hole_dist,  y/2-pcb_hole_dist, 0])if (mode==0) my_screwhole_mX(d); else nuthole_mX(d);
-      translate([-x/2+pcb_hole_dist, -y/2+pcb_hole_dist, 0])if (mode==0) my_screwhole_mX(d); else nuthole_mX(d);
-    }
-  }
+     translate([-power_pos_x, power_pos_y, 0]){
+          translate([ x/2-pcb_hole_dist,  y/2-pcb_hole_dist, 0])if (mode==0) my_screwhole_mX(d); else nuthole_mX(d);
+          translate([ x/2-pcb_hole_dist, -y/2+pcb_hole_dist, 0])if (mode==0) my_screwhole_mX(d); else nuthole_mX(d);
+          translate([-x/2+pcb_hole_dist,  y/2-pcb_hole_dist, 0])if (mode==0) my_screwhole_mX(d); else nuthole_mX(d);
+          translate([-x/2+pcb_hole_dist, -y/2+pcb_hole_dist, 0])if (mode==0) my_screwhole_mX(d); else nuthole_mX(d);
+     }
 }
 
 module power_spacers(scale, d, mode){
@@ -97,6 +97,13 @@ module power_holes(scale, d, mode){
     translate([ 24*scale,-21*scale, 0]) rotate([0,180,0]) if (mode==0) my_screwhole_mX(d); else nuthole_mX(d);
     translate([-24*scale,-21*scale, 0]) rotate([0,180,0]) if (mode==0) my_screwhole_mX(d); else nuthole_mX(d);
   }
+}
+
+module ssd_frame(){
+     difference(){
+          cube([ssd_x+thickness+0.1, ssd_y+thickness+0.1, ssd_z], center=true);
+          cube([ssd_x, ssd_y, 5*ssd_z], center=true);
+     }
 }
 
 module pi_sdcard(min_size){
@@ -221,8 +228,9 @@ difference(){
     translate([0, 25, 0])cube([120, 10, thickness], center=true);
     translate([2*power_pos_x-1.5, power_pos_y, 0.0])cube([10, 70, thickness], center=true);
     translate([0.5, 0, 0.0])cube([10, 60, thickness], center=true);
-    translate([-12, 0, 0.0])cube([10, 70, thickness], center=true);
-    translate([-pcb_x_size-8, power_pos_y-7, 0.0])cube([10, 90, thickness], center=true);
+    translate([0, 60, 0.0])cube([40, 70, thickness], center=true);
+    translate([-pcb_x_size-8, power_pos_y-7, 0.0])cube([10, 50, thickness], center=true);
+    #translate([0, 0, +ssd_z-0.1])ssd_frame();
   }
   // drill holes for screws through all of it
   pcb_holes(pcb_x_size, pcb_y_size, 2.5, 1);
