@@ -26,19 +26,6 @@ include <../lib/bodyhelpers.scad>
 // global parameters
 top_size_scaler = 0.8;
 
-// pi case dimensions
-pi_pos_x = 0;
-pi_pos_y = -60;
-pi_frame_height = 5;
-pi_spacer_height = 2;
-pi_holespace_x = 29.0;
-pi_holespace_y = 24.5;
-pi_displace_x = 10;
-// Ethernet 13x11 mm
-// hdmi 8x4mm
-// usb-c 10x4mm
-// aux out d=7mm
-
 // electronics
 power_pos_x = 25;
 power_pos_y = 58;
@@ -61,7 +48,9 @@ batt_thickness = 3;
 ssd_x = 75.0;
 ssd_y = 57.0;
 ssd_z = 11.2;
-
+ssd_pos_x = 0;
+ssd_pos_y = -50;
+ssd_height = ssd_z + thickness;
 module pcb_spacers(x, y, d, mode){
      // spacers
      translate([ x/2-pcb_hole_dist,  y/2-pcb_hole_dist, 0])spacer_mX(d, pcb_spacer_height);
@@ -101,59 +90,11 @@ module power_holes(scale, d, mode){
 
 module ssd_frame(){
      difference(){
-          cube([ssd_x+thickness+0.1, ssd_y+thickness+0.1, ssd_z], center=true);
-          cube([ssd_x, ssd_y, 5*ssd_z], center=true);
+          cube([ssd_x+thickness+0.1, ssd_y+thickness+0.1, ssd_height], center=true);
+          translate([0, 0, thickness])cube([ssd_x, ssd_y, ssd_height], center=true);
+          translate([ssd_x/2, 0, thickness])cube([40, 40, ssd_height], center=true);
+          translate([-ssd_x/2, 0, thickness])cube([40, 40, ssd_height], center=true);
      }
-}
-
-module pi_sdcard(min_size){
-  translate([44,0,0])cube([2*thickness, 20, 10*min_size], center=true);
-}
-
-module pi_frame(height){
-  h1 = thickness;
-  h2 = height;
-
-  translate([0, 0, (h1+h2)/2-0.1]){
-    difference(){
-      cube([88.5, 59.5, h2], center=true);
-      cube([85.3, 56.3, h2+0.1], center=true);
-      // carve out the holes for connectors
-      translate([-42.5, 28-9, 7.25])cube([20, 13, 15], center=true);//USB1
-      translate([-42.5, 28-27, 7.25])cube([20, 13, 15], center=true);//USB1
-      translate([-42.5, 28-45.75, 5.5])cube([20, 13, 11], center=true);//ethernet
-      translate([42.5-26, 28, 2])cube([8, 20, 4], center=true);//hdmi1
-      translate([42.5-26-13.5, 28, 2])cube([8, 20, 4], center=true);//hdmi2
-      translate([42.5-11.2, 28, 2])cube([10, 20, 4], center=true);//usbc
-      translate([42.5-26-13.5-7-7.5, 28, 2])rotate([90, 0, 0])cylinder(h=20, d=7, $fn=50, center=true);
-    }
-  }
-}
-
-module pi_screwholes(){
-  translate([pi_pos_x, pi_pos_y, 0])rotate([0, 0, 180])union(){
-    translate([+ pi_holespace_x+pi_displace_x, + pi_holespace_y, 5])my_screwhole_mX(2.5);
-    translate([- pi_holespace_x+pi_displace_x, + pi_holespace_y, 5])my_screwhole_mX(2.5);
-    translate([+ pi_holespace_x+pi_displace_x, - pi_holespace_y, 5])my_screwhole_mX(2.5);
-    translate([- pi_holespace_x+pi_displace_x, - pi_holespace_y, 5])my_screwhole_mX(2.5);
-  }
-}
-
-module pi(){
-  pi_frame(pi_frame_height);
-  difference(){
-    union(){
-      translate([0, -25, 0])cube([115, 10, thickness], center=true);
-      translate([0,  25, 0])cube([90, 10, thickness], center=true);
-      translate([45,  0, 0])cube([5, 40, thickness], center=true);
-      translate([-45,  0, 0])cube([5, 40, thickness], center=true);
-    }
-  }
-  // add spacers
-  translate([ pi_holespace_x+pi_displace_x, pi_holespace_y, 0])spacer_mX(2.5, pi_spacer_height);
-  translate([-pi_holespace_x+pi_displace_x, pi_holespace_y, 0])spacer_mX(2.5, pi_spacer_height);
-  translate([ pi_holespace_x+pi_displace_x,-pi_holespace_y, 0])spacer_mX(2.5, pi_spacer_height);
-  translate([-pi_holespace_x+pi_displace_x,-pi_holespace_y, 0])spacer_mX(2.5, pi_spacer_height);
 }
 
 module mount(){
@@ -211,14 +152,6 @@ module bodymiddle(){
   // supports and spacers for u2d2 and power converters
   translate([-power_pos_x, power_pos_y, 0])pcb_spacers(pcb_x_size, pcb_y_size, 2.5, 1);
   power_spacers(1, 3, 0);
-  // add raspberrypie
-  translate([pi_pos_x, pi_pos_y, 0]){
-    rotate([0, 0, 180])
-      difference(){
-      pi();
-      pi_sdcard(pi_frame_height);
-    }
-  }
 }
 
 difference(){
@@ -230,10 +163,10 @@ difference(){
     translate([0.5, 0, 0.0])cube([10, 60, thickness], center=true);
     translate([0, 60, 0.0])cube([40, 70, thickness], center=true);
     translate([-pcb_x_size-8, power_pos_y-7, 0.0])cube([10, 50, thickness], center=true);
-    #translate([0, 0, +ssd_z-0.1])ssd_frame();
+    //translate([ssd_pos_x, ssd_pos_y, +ssd_z/2-0.1])ssd_frame();
+    translate([ssd_pos_x, ssd_pos_y, ssd_height/2-thickness/2])ssd_frame();
   }
   // drill holes for screws through all of it
   pcb_holes(pcb_x_size, pcb_y_size, 2.5, 1);
   power_holes(1, 3, 0);
-  pi_screwholes();
 }
