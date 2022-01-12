@@ -169,4 +169,5 @@ difference(){
   // drill holes for screws through all of it
   pcb_holes(pcb_x_size, pcb_y_size, 2.5, 1);
   power_holes(1, 3, 0);
+  etages(180);
 }

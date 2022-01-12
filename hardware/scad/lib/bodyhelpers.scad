@@ -75,3 +75,12 @@ module binder(){
      translate([-binder_dist/2, 0, 0]) cube([2, 3, 50], center=true);
      translate([ binder_dist/2, 0, 0]) cube([2, 3, 50], center=true);
 }
+
+module etages(alpha){
+  union(){
+    #rotate([alpha, 0, 0])translate([-60, 35,  1])my_screwhole_mX(3);
+    #rotate([alpha, 0, 0])translate([ 60, 35,  1])my_screwhole_mX(3);
+    #rotate([alpha, 0, 0])translate([-60, -35, 1])my_screwhole_mX(3);
+    #rotate([alpha, 0, 0])translate([ 60, -35, 1])my_screwhole_mX(3);
+  }
+}
