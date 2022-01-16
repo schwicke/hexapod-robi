@@ -37,13 +37,6 @@ pcb_spacer_height = 3;
 pcb_x_size = 40;
 pcb_y_size = 60;
 
-// battery dimenasions - for stagging stuff
-// battery box dimensions
-batt_x = 50;
-batt_y = 160;
-batt_z = 25;
-batt_thickness = 3;
-
 // disk
 ssd_x = 75.0;
 ssd_y = 57.0;
@@ -53,10 +46,12 @@ ssd_pos_y = -50;
 ssd_height = ssd_z + thickness;
 module pcb_spacers(x, y, d, mode){
      // spacers
-     translate([ x/2-pcb_hole_dist,  y/2-pcb_hole_dist, 0])spacer_mX(d, pcb_spacer_height);
-     translate([ x/2-pcb_hole_dist, -y/2+pcb_hole_dist, 0])spacer_mX(d, pcb_spacer_height);
-     translate([-x/2+pcb_hole_dist,  y/2-pcb_hole_dist, 0])spacer_mX(d, pcb_spacer_height);
-     translate([-x/2+pcb_hole_dist, -y/2+pcb_hole_dist, 0])spacer_mX(d, pcb_spacer_height);
+     translate([-power_pos_x, power_pos_y, 0]){
+          translate([ x/2-pcb_hole_dist,  y/2-pcb_hole_dist, 0])spacer_mX(d, pcb_spacer_height);
+          translate([ x/2-pcb_hole_dist, -y/2+pcb_hole_dist, 0])spacer_mX(d, pcb_spacer_height);
+          translate([-x/2+pcb_hole_dist,  y/2-pcb_hole_dist, 0])spacer_mX(d, pcb_spacer_height);
+          translate([-x/2+pcb_hole_dist, -y/2+pcb_hole_dist, 0])spacer_mX(d, pcb_spacer_height);
+     }
 }
 
 module pcb_holes(x, y, d, mode){
@@ -150,7 +145,7 @@ module bodymiddle(){
   translate([-base_mount_pos_x, 0, 0])mount();
   translate([+base_mount_pos_x, 0, 0])mount();
   // supports and spacers for u2d2 and power converters
-  translate([-power_pos_x, power_pos_y, 0])pcb_spacers(pcb_x_size, pcb_y_size, 2.5, 1);
+  pcb_spacers(pcb_x_size, pcb_y_size, 2.5, 1);
   power_spacers(1, 3, 0);
 }
 
@@ -159,11 +154,10 @@ difference(){
     bodymiddle();
     translate([0, -20, 0])cube([120, 10, thickness], center=true);
     translate([0, 25, 0])cube([120, 10, thickness], center=true);
-    translate([2*power_pos_x-1.5, power_pos_y, 0.0])cube([10, 70, thickness], center=true);
+    translate([2*power_pos_x-1.5, power_pos_y, 0.0])cube([8, 60, thickness], center=true);
     translate([0.5, 0, 0.0])cube([10, 60, thickness], center=true);
     translate([0, 60, 0.0])cube([40, 70, thickness], center=true);
-    translate([-pcb_x_size-8, power_pos_y-7, 0.0])cube([10, 50, thickness], center=true);
-    //translate([ssd_pos_x, ssd_pos_y, +ssd_z/2-0.1])ssd_frame();
+    translate([-pcb_x_size-6, power_pos_y-7, 0.0])cube([18, 50, thickness], center=true);
     translate([ssd_pos_x, ssd_pos_y, ssd_height/2-thickness/2])ssd_frame();
   }
   // drill holes for screws through all of it
