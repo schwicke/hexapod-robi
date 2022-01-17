@@ -38,9 +38,10 @@ pcb_x_size = 40;
 pcb_y_size = 60;
 
 // disk
-ssd_x = 75.0;
-ssd_y = 57.0;
-ssd_z = 11.2;
+delta = 0.2;
+ssd_x = 75.0 + delta;
+ssd_y = 57.0 + delta;
+ssd_z = 11.0 + delta;
 ssd_pos_x = 0;
 ssd_pos_y = -50;
 ssd_height = ssd_z + thickness;
