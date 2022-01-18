@@ -37,24 +37,10 @@ pi_displace_x = 10;
 // hdmi 8x4mm
 // usb-c 10x4mm
 // aux out d=7mm
-
-// electronics
-power_pos_x = 25;
-power_pos_y = 58;
-power_spacer_height = 3;
-power_converter_scale = 0.7;
-//
 pcb_hole_dist = 2.0;
 pcb_spacer_height = 3;
-pcb_x_size = 40;
-pcb_y_size = 60;
-
-// battery dimenasions - for stagging stuff
-// battery box dimensions
-batt_x = 50;
-batt_y = 160;
-batt_z = 25;
-batt_thickness = 3;
+pcb_x_size = 50;
+pcb_y_size = 70;
 
 module pi_sdcard(min_size){
   translate([44,0,0])cube([2*thickness, 20, 10*min_size], center=true);
@@ -127,12 +113,12 @@ module bodytop(){
       }
     }
     // add some screwholes
-    translate([0, -110, 1])my_screwhole_mX(3);
-    translate([16, -110, 1])my_screwhole_mX(3);
-    translate([-16, -110, 1])my_screwhole_mX(3);
-    translate([0, 110, 1])my_screwhole_mX(3);
-    translate([16, 110, 1])my_screwhole_mX(3);
-    translate([-16, 110, 1])my_screwhole_mX(3);
+    translate([0, -110, 0])rotate([0., 0., 180.])nuthole_mX(3);
+    translate([16, -110, 0])rotate([0., 0., 180.])nuthole_mX(3);
+    translate([-16, -110, 0])rotate([0., 0., 180.])nuthole_mX(3);
+    translate([0, 110, 0])rotate([0., 0., 180.])nuthole_mX(3);
+    translate([16, 110, 0])rotate([0., 0., 180.])nuthole_mX(3);
+    translate([-16, 110, 0])rotate([0., 0., 180.])nuthole_mX(3);
   }
   // add raspberrypie
   translate([pi_pos_x, pi_pos_y, 0]){
@@ -144,11 +130,32 @@ module bodytop(){
   }
 }
 
+module pcb_spacers(x, y, d, mode){
+  // spacers
+  translate([ x/2-pcb_hole_dist,  y/2-pcb_hole_dist, 0])spacer_mX(d, pcb_spacer_height);
+  translate([ x/2-pcb_hole_dist, -y/2+pcb_hole_dist, 0])spacer_mX(d, pcb_spacer_height);
+  translate([-x/2+pcb_hole_dist,  y/2-pcb_hole_dist, 0])spacer_mX(d, pcb_spacer_height);
+  translate([-x/2+pcb_hole_dist, -y/2+pcb_hole_dist, 0])spacer_mX(d, pcb_spacer_height);
+}
+
+module pcb_holes(x, y, d, mode){
+  translate([ x/2-pcb_hole_dist,  y/2-pcb_hole_dist, 0])if (mode==0) my_screwhole_mX(d); else nuthole_mX(d);
+  translate([ x/2-pcb_hole_dist, -y/2+pcb_hole_dist, 0])if (mode==0) my_screwhole_mX(d); else nuthole_mX(d);
+  translate([-x/2+pcb_hole_dist,  y/2-pcb_hole_dist, 0])if (mode==0) my_screwhole_mX(d); else nuthole_mX(d);
+  translate([-x/2+pcb_hole_dist, -y/2+pcb_hole_dist, 0])if (mode==0) my_screwhole_mX(d); else nuthole_mX(d);
+}
+
 difference(){
   union(){
     bodytop();
+    cube([140, 20, thickness], center=true);
+    translate([ 0, 70, 0])cube([100, 20, thickness], center=true);
+    translate([ pcb_x_size/2+3.3, 35, 0])pcb_spacers(pcb_x_size, pcb_y_size, 2.5, 1);
+    translate([-pcb_x_size/2-3.3, 35, 0])pcb_spacers(pcb_x_size, pcb_y_size, 2.5, 1);
   }
   // drill holes for screws through all of it
   pi_screwholes();
   etages(0);
+  translate([ pcb_x_size/2+3.3, 35, 0])pcb_holes(pcb_x_size, pcb_y_size, 2.5, 1);
+  translate([-pcb_x_size/2-3.3, 35, 0])pcb_holes(pcb_x_size, pcb_y_size, 2.5, 1);
 }

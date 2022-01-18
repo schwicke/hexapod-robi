@@ -78,9 +78,9 @@ module binder(){
 
 module etages(alpha){
   union(){
-    #rotate([alpha, 0, 0])translate([-60, 35,  1])my_screwhole_mX(3);
-    #rotate([alpha, 0, 0])translate([ 60, 35,  1])my_screwhole_mX(3);
-    #rotate([alpha, 0, 0])translate([-60, -35, 1])my_screwhole_mX(3);
-    #rotate([alpha, 0, 0])translate([ 60, -35, 1])my_screwhole_mX(3);
+    rotate([alpha, 0, 0])translate([-60, 35,  1])my_screwhole_mX(3);
+    rotate([alpha, 0, 0])translate([ 60, 35,  1])my_screwhole_mX(3);
+    rotate([alpha, 0, 0])translate([-60, -35, 1])my_screwhole_mX(3);
+    rotate([alpha, 0, 0])translate([ 60, -35, 1])my_screwhole_mX(3);
   }
 }
