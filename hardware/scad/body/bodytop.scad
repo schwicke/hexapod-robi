@@ -68,10 +68,10 @@ module pi_frame(height){
 
 module pi_screwholes(){
   translate([pi_pos_x, pi_pos_y, 0])rotate([0, 0, 180])union(){
-    translate([+ pi_holespace_x+pi_displace_x, + pi_holespace_y, 5])my_screwhole_mX(2.5);
-    translate([- pi_holespace_x+pi_displace_x, + pi_holespace_y, 5])my_screwhole_mX(2.5);
-    translate([+ pi_holespace_x+pi_displace_x, - pi_holespace_y, 5])my_screwhole_mX(2.5);
-    translate([- pi_holespace_x+pi_displace_x, - pi_holespace_y, 5])my_screwhole_mX(2.5);
+    translate([+ pi_holespace_x+pi_displace_x, + pi_holespace_y, 0])rotate([0.0, 180.0, 0.0])my_screwhole_mX(2.5);
+    translate([- pi_holespace_x+pi_displace_x, + pi_holespace_y, 0])rotate([0.0, 180.0, 0.0])my_screwhole_mX(2.5);
+    translate([+ pi_holespace_x+pi_displace_x, - pi_holespace_y, 0])rotate([0.0, 180.0, 0.0])my_screwhole_mX(2.5);
+    translate([- pi_holespace_x+pi_displace_x, - pi_holespace_y, 0])rotate([0.0, 180.0, 0.0])my_screwhole_mX(2.5);
   }
 }
 
