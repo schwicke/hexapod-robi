@@ -22,22 +22,33 @@ include <../lib/nuts_and_screws.scad>
 include <../lib/sideparts.scad>
 
 translate([0, 5, 0]){
-     difference(){
-          sidepart();
-          // switches
-          translate([12, 0, 0]) rotate([90, 0, 0]) cylinder(h=50, d=reset_d+0.2, center=true);
-          translate([-12, 0, 0]) rotate([90, 0, 0]) cylinder(h=50, d=reset_d+0.2, center=true);
-          translate([12, 7, 0]) rotate([90, 0, 0]) cube([18.1, 18.1, 18.1], center=true);
-          translate([-12, 7, 0]) rotate([90, 0, 0]) cube([18.1, 18.1, 18.1], center=true);
-     }
+  difference(){
+    union(){
+      translate([ screwdist_x/2, -1.5, -screwdist_y/2])rotate([90., 0., 0.])cylinder(h=3, d=4, center=true);
+      translate([ screwdist_x/2, -1.5,  screwdist_y/2])rotate([90., 0., 0.])cylinder(h=3, d=4, center=true);
+      translate([-screwdist_x/2, -1.5,  screwdist_y/2])rotate([90., 0., 0.])cylinder(h=3, d=4, center=true);
+      translate([-screwdist_x/2, -1.5, -screwdist_y/2])rotate([90., 0., 0.])cylinder(h=3, d=4, center=true);
+      difference(){
+        sidepart();
+        // HC SR04 sensor
+        translate([halfdist, 0, 0]) rotate([90, 0, 0]) cylinder(h=50, d=diameter, center=true);
+        translate([-halfdist, 0, 0]) rotate([90, 0, 0]) cylinder(h=50, d=diameter, center=true);
+        translate([0, -7, 0])cube([xsize+0.1, 10, ysize+0.2], center=true);
+      }
+    }
+    translate([ screwdist_x/2, 0,  screwdist_y/2])rotate([90., 0., 0.])nuthole_mX(2);
+    translate([-screwdist_x/2, 0,  screwdist_y/2])rotate([90., 0., 0.])nuthole_mX(2);
+    translate([ screwdist_x/2, 0, -screwdist_y/2])rotate([90., 0., 0.])nuthole_mX(2);
+    translate([-screwdist_x/2, 0, -screwdist_y/2])rotate([90., 0., 0.])nuthole_mX(2);
+  }
 }
 
 translate([0, -5, hight/2-thickness_top/2]){
      difference(){
           rotate([0, 180, 0]) cube([45, 10, thickness_top], center=true);
-          translate([ 0, 0, 0]) nuthole_mX(3);
           translate([ 16, 0, 0]) nuthole_mX(3);
           translate([-16, 0, 0]) nuthole_mX(3);
+          translate([0, -0, 10])cube([15, 15, 30], center=true);
      }
 }
 

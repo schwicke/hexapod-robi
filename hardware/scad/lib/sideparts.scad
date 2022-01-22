@@ -21,7 +21,16 @@ include <../lib/globals.scad>
 include <../lib/bodyhelpers.scad>
 switch_x =  12;
 switch_z = 19;
-reset_d = 17;
+
+// using a ultrasonic sensor HC SR04
+diameter = 16.1;
+halfdist = 13;
+screwdist_x = 41;
+screwdist_y = 16.5;
+xsize = 45;
+ysize = 20;
+
+// other global variables
 thickness_top=5;
 thickness_bottom=7;
 over_thickness = 150;
@@ -40,9 +49,6 @@ module sidepart(){
                wleg = 20;       // Angle of the outer legs
                difference(){
                     cube([90.0, 245.0, hight],center=true);
-                    translate([5, 122.5, 10])rotate([90, 0, 180])scale([0.25, 0.25, 1.0])linear_extrude(height=1, center=true, convexity=0, twist=0, slices=10, scale=1.0)text("12V DC");
-                    translate([20, 122.5, -13])rotate([90, 0, 180])scale([0.25, 0.25, 1.0])linear_extrude(height=1, center=true, convexity=0, twist=0, slices=10, scale=1.0)text("Motors");
-                    translate([-15, 122.5, -13])rotate([90, 0, 180])scale([0.25, 0.25, 1.0])linear_extrude(height=1, center=true, convexity=0, twist=0, slices=10, scale=1.0)text("Pi");
                     union(){
                          scale([0.9,1.,1.])linear_extrude(height=over_thickness, center=true, convexity=0, twist=0, slices=10, scale=1.0)resize([180, 230])circle(d=10, $fn=6);
                          // add the motor anchors

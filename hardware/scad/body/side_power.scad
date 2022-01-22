@@ -34,6 +34,9 @@ translate([0, 5, 0]){
                }
           }
           translate([0, -5, 2])cube([17, 10.1, 15], center=true);
+          translate([ 5,  2.3, -15])rotate([90, 0, 180])scale([0.25, 0.25, 1.0])linear_extrude(height=1, center=true, convexity=0, twist=0, slices=10, scale=1.0)text("12V DC");
+          translate([ 20, 2.3, -15])rotate([90, 0, 180])scale([0.25, 0.25, 1.0])linear_extrude(height=1, center=true, convexity=0, twist=0, slices=10, scale=1.0)text("On/Off");
+          translate([-15, 2.3,-15])rotate([90, 0, 180])scale([0.25, 0.25, 1.0])linear_extrude(height=1, center=true, convexity=0, twist=0, slices=10, scale=1.0)text("On/Off");
      }
 }
 
