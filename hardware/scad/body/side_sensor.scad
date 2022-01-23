@@ -36,10 +36,10 @@ translate([0, 5, 0]){
         translate([0, -7, 0])cube([xsize+0.1, 10, ysize+0.2], center=true);
       }
     }
-    translate([ screwdist_x/2, 0,  screwdist_y/2])rotate([90., 0., 0.])nuthole_mX(2);
-    translate([-screwdist_x/2, 0,  screwdist_y/2])rotate([90., 0., 0.])nuthole_mX(2);
-    translate([ screwdist_x/2, 0, -screwdist_y/2])rotate([90., 0., 0.])nuthole_mX(2);
-    translate([-screwdist_x/2, 0, -screwdist_y/2])rotate([90., 0., 0.])nuthole_mX(2);
+    translate([ screwdist_x/2, 0,  screwdist_y/2])rotate([-90., 0., 0.])my_screwhole_mX(2);
+    translate([-screwdist_x/2, 0,  screwdist_y/2])rotate([-90., 0., 0.])my_screwhole_mX(2);
+    translate([ screwdist_x/2, 0, -screwdist_y/2])rotate([-90., 0., 0.])my_screwhole_mX(2);
+    translate([-screwdist_x/2, 0, -screwdist_y/2])rotate([-90., 0., 0.])my_screwhole_mX(2);
   }
 }
 
