@@ -31,15 +31,15 @@ translate([0, 5, 0]){
       difference(){
         sidepart();
         // HC SR04 sensor
-        translate([halfdist, 0, 0]) rotate([90, 0, 0]) cylinder(h=50, d=diameter, center=true);
+        translate([ halfdist, 0, 0]) rotate([90, 0, 0]) cylinder(h=50, d=diameter, center=true);
         translate([-halfdist, 0, 0]) rotate([90, 0, 0]) cylinder(h=50, d=diameter, center=true);
-        translate([0, -7, 0])cube([xsize+0.1, 10, ysize+0.2], center=true);
+        translate([0, -7, 0])cube([xsize+0.1, 12, ysize+0.2], center=true);
       }
     }
-    translate([ screwdist_x/2, 0,  screwdist_y/2])rotate([-90., 0., 0.])my_screwhole_mX(2);
-    translate([-screwdist_x/2, 0,  screwdist_y/2])rotate([-90., 0., 0.])my_screwhole_mX(2);
-    translate([ screwdist_x/2, 0, -screwdist_y/2])rotate([-90., 0., 0.])my_screwhole_mX(2);
-    translate([-screwdist_x/2, 0, -screwdist_y/2])rotate([-90., 0., 0.])my_screwhole_mX(2);
+    translate([ screwdist_x/2, 0,  screwdist_y/2])rotate([-90., 0., 0.])my_screwhole_mX(1.6);
+    translate([-screwdist_x/2, 0,  screwdist_y/2])rotate([-90., 0., 0.])my_screwhole_mX(1.6);
+    translate([ screwdist_x/2, 0, -screwdist_y/2])rotate([-90., 0., 0.])my_screwhole_mX(1.6);
+    translate([-screwdist_x/2, 0, -screwdist_y/2])rotate([-90., 0., 0.])my_screwhole_mX(1.6);
   }
 }
 

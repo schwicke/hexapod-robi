@@ -23,7 +23,7 @@ switch_x =  12;
 switch_z = 19;
 
 // using a ultrasonic sensor HC SR04
-diameter = 16.1;
+diameter = 16.0+0.2;
 halfdist = 13;
 screwdist_x = 41;
 screwdist_y = 16.5;
@@ -57,5 +57,9 @@ module sidepart(){
                     translate([0, -100, 0])cube([150, 50, over_thickness], center=true);
                }
           }
+         translate([ 40, 0., 0])rotate([0., 0.,-20.])cube([10.0, 100.0, 50.0], center=true);
+         translate([-40, 0., 0])rotate([0., 0., 20.])cube([10.0, 100.0, 50.0], center=true);
+
      }
 }
+
