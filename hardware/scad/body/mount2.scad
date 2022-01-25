@@ -32,8 +32,8 @@ module mount2(){
           translate([0, 0, space+10])cylinder(h=50, r=m3s_screwdim/2+0.1, center=true, $fn=50);
           translate([0, 0, 10])cylinder(h=50, r=m3s_screwdim/2+0.1, center=true, $fn=50);
           // nuts 5.4mm x 2.4mm
-          translate([0, -wy/4+m3s_nut_width/4, space-3])rotate([0,0,180])translate([-m3s_nut_width/2, -m3s_nut_width/2, -m3s_nut_hight/2])cube([m3s_nut_width, 4*m3s_nut_width, m3s_nut_hight], center=false);
-          translate([0, -wy/4+m3s_nut_width/4, 5])rotate([0,0,180])translate([-m3s_nut_width/2, -m3s_nut_width/2, -m3s_nut_hight/2])cube([m3s_nut_width, 4*m3s_nut_width, m3s_nut_hight], center=false);
+          translate([0., 0.7, space-5])rotate([0,0,180])translate([-m3s_nut_width/2, -m3s_nut_width/2, -m3s_nut_hight/2])cube([m3s_nut_width, 4*m3s_nut_width, m3s_nut_hight], center=false);
+          translate([0., 0.7, 5])rotate([0,0,180])translate([-m3s_nut_width/2, -m3s_nut_width/2, -m3s_nut_hight/2])cube([m3s_nut_width, 4*m3s_nut_width, m3s_nut_hight], center=false);
 
      }
 }
