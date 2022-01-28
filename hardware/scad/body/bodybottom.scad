@@ -27,7 +27,7 @@ module connector_hub(n){
      hub_hole_distance = 2*(n+1)*raster;
      translate([ hub_hole_distance/2, 0., 4.])rotate([0, 180, 0])screwhole_mX_basic(hub_hole_diameter, 40, 1);
      translate([-hub_hole_distance/2, 0., 4.])rotate([0, 180, 0])screwhole_mX_basic(hub_hole_diameter, 40, 1);
-     cube([n*hub_x+0.1, hub_y+0.1, 20], center=true);
+     cube([n*hub_x+0.1*n, hub_y+0.1*n, 20], center=true);
 }
 
 module connector_hub_spacers(n){
