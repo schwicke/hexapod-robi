@@ -55,7 +55,8 @@ translate([0, -5, hight/2-thickness_top/2]){
 translate([0, -5, -hight/2+thickness_bottom/2]){
      difference(){
           cube([45, 10, thickness_bottom], center=true);
-          translate([ 16, 0, 0]) my_screwhole_mX(3);
-          translate([-16, 0, 0]) my_screwhole_mX(3);
+          translate([  0, 0, 0])rotate([ 180.0 ,0.0 ,0.0 ])nuthole_mX(3);
+          translate([ 16, 0, 0])rotate([ 180.0 ,0.0 ,0.0 ])nuthole_mX(3);
+          translate([-16, 0, 0])rotate([ 180.0 ,0.0 ,0.0 ])nuthole_mX(3);
      }
 }

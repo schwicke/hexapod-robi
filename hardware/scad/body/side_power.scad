@@ -27,16 +27,16 @@ translate([0, 5, 0]){
                difference(){
                     sidepart();
                     // switches
-                    translate([10, -20, -9])cube([switch_x+0.3, 50, switch_z+0.5]);
-                    translate([1.7-(2*switch_x),-20,-9])cube([switch_x+0.3, 50, switch_z+0.5]);
+                    translate([10, -20, -9])cube([switch_x+0.4, 50, switch_z+0.5]);
+                    translate([1.7-(2*switch_x),-20,-9])cube([switch_x+0.4, 50, switch_z+0.5]);
                     // power connector
                     translate([-5, -20, -8.9])cube([9.2, 50, 11.2]);
                }
           }
-          translate([0, -5, -3])cube([17, 10.1, 15], center=true);
+          translate([ 0,   -5,  -3])cube([17, 10.1, 15], center=true);
           translate([ 5,  2.3, -15])rotate([90, 0, 180])scale([0.25, 0.25, 1.0])linear_extrude(height=1, center=true, convexity=0, twist=0, slices=10, scale=1.0)text("12V DC");
           translate([ 20, 2.3, -15])rotate([90, 0, 180])scale([0.25, 0.25, 1.0])linear_extrude(height=1, center=true, convexity=0, twist=0, slices=10, scale=1.0)text("On/Off");
-          translate([-15, 2.3,-15])rotate([90, 0, 180])scale([0.25, 0.25, 1.0])linear_extrude(height=1, center=true, convexity=0, twist=0, slices=10, scale=1.0)text("On/Off");
+          translate([-15, 2.3, -15])rotate([90, 0, 180])scale([0.25, 0.25, 1.0])linear_extrude(height=1, center=true, convexity=0, twist=0, slices=10, scale=1.0)text("On/Off");
      }
 }
 
@@ -44,6 +44,7 @@ translate([0, -5, hight/2-thickness_top/2]){
      difference(){
           rotate([0, 180, 0]) cube([47, 10, thickness_top], center=true);
           //translate([ 0, 0, 0])nuthole_mX(3);
+          translate([  0, 0, 0]) nuthole_mX(3);
           translate([ 16, 0, 0]) nuthole_mX(3);
           translate([-16, 0, 0]) nuthole_mX(3);
           translate([ 3*raster, 0, 5]) my_screwhole_mX(3);
@@ -62,8 +63,9 @@ translate([0, -5, -hight/2+thickness_bottom/2]){
                     }
                }
           }
-          translate([ 16, 0, 0]) my_screwhole_mX(3);
-          translate([-16, 0, 0]) my_screwhole_mX(3);
+          translate([  0, 0, 0])rotate([ 180.0 ,0.0 ,0.0 ])nuthole_mX(3);
+          translate([ 16, 0, 0])rotate([ 180.0 ,0.0 ,0.0 ])nuthole_mX(3);
+          translate([-16, 0, 0])rotate([ 180.0 ,0.0 ,0.0 ])nuthole_mX(3);
           translate([ 3*raster, 0, 2]) nuthole_mX(2);
           translate([-3*raster, 0, 2]) nuthole_mX(2);
      }
