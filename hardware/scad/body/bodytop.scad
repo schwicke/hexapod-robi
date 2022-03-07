@@ -113,12 +113,12 @@ module bodytop(){
       }
     }
     // add some screwholes
-    translate([0, -110, 0])rotate([0., 0., 180.])nuthole_mX(3);
-    translate([16, -110, 0])rotate([0., 0., 180.])nuthole_mX(3);
-    translate([-16, -110, 0])rotate([0., 0., 180.])nuthole_mX(3);
-    translate([0, 110, 0])rotate([0., 0., 180.])nuthole_mX(3);
-    translate([16, 110, 0])rotate([0., 0., 180.])nuthole_mX(3);
-    translate([-16, 110, 0])rotate([0., 0., 180.])nuthole_mX(3);
+    translate([0, -110, 0])rotate([180., 0., 0.])nuthole_mX(3);
+    translate([16, -110, 0])rotate([180., 0., 0.])nuthole_mX(3);
+    translate([-16, -110, 0])rotate([180., 0., 0.])nuthole_mX(3);
+    translate([0, 110, 0])rotate([180., 0., 0.])nuthole_mX(3);
+    translate([16, 110, 0])rotate([180., 0., 0.])nuthole_mX(3);
+    translate([-16, 110, 0])rotate([180., 0., 0.])nuthole_mX(3);
   }
   // add raspberrypie
   translate([pi_pos_x, pi_pos_y, 0]){
@@ -158,4 +158,6 @@ difference(){
   etages(0);
   translate([ pcb_x_size/2+3.3, 35, 0])pcb_holes(pcb_x_size, pcb_y_size, 2.5, 1);
   translate([-pcb_x_size/2-3.3, 35, 0])pcb_holes(pcb_x_size, pcb_y_size, 2.5, 1);
+  translate([0, 100, 0])cube([40, 10, 10], center=true);
+  translate([0, -100, 0])cube([40, 10, 10], center=true);
 }
