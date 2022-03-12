@@ -118,9 +118,9 @@ int readState(struct gpiod_line *line){
 void select_channel(unsigned int num)
 {
   // num is the number of the channel to be read out
-  int odd = (num & (1u << 0) ? HIGH : LOW);
-  int bit1 = (num & (1u << 1) ? HIGH : LOW);
-  int bit2 = (num & (1u << 2) ? HIGH : LOW);
+  int odd  = (num & (1u << 0) ? HIGH : LOW);
+  int bit0 = (num & (1u << 1) ? HIGH : LOW);
+  int bit1 = (num & (1u << 2) ? HIGH : LOW);
   // write start bit
   writeState(clockline, LOW);
   writeState(datainline, HIGH);
@@ -138,8 +138,8 @@ void select_channel(unsigned int num)
   writeState(datainline, bit1);
   writeState(clockline, HIGH);
   writeState(clockline, LOW);
-  // write bit 2
-  writeState(datainline, bit2);
+  // write bit 0
+  writeState(datainline, bit0);
   writeState(clockline, HIGH);
   writeState(clockline, LOW);
 }
@@ -174,7 +174,7 @@ int main(int argc, char **argv)
   writeState(clockline, LOW);
   while (1) {
     //
-    for (int channel=0;channel<5;channel++){
+    for (int channel=0;channel<6;channel++){
       sensors[channel] = read_channel(channel);
     }
     printf("Pressure sensor readings: %d %d %d %d %d %d\n",
