@@ -15,30 +15,14 @@ You should have received a copy of the GNU General Public License
 along with this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
-/* Proof of concept for 
-reads out channel 1 of adc0838 digitizer, 
+/* Proof of concept for
+reads out channel 1 - 6 of adc0838 digitizer,
 and prints the results on the screen
-gcc adc0838.c -l gpiod -o adc0838
 */
 #include <gpiod.h>
 #include <stdio.h>
 #include <unistd.h>
-#include "digiters.h"
-
-#ifndef	CONSUMER
-#define	CONSUMER	"Consumer"
-#endif
-
-unsigned int LOW = 0;
-unsigned int HIGH = 0xffffff;
-
-void delayMicroseconds(int delay){
-  sleep((float)delay/1e6);
-}
-
-void delay(int delay){
-  sleep((float)delay/1e3);
-}
+#include "digitizers.h"
 
 void abort(){
   gpiod_line_release(csbarline);
@@ -49,51 +33,9 @@ void abort(){
   exit(0);
 }
 
-struct gpiod_line * setAsOutput(int pin){
-  struct gpiod_line *gpio_line;
-  int result;
-
-  gpio_line = gpiod_chip_get_line(chip, pin);
-  if (!gpio_line) {
-    gpiod_chip_close(chip);
-    perror("Get line failed\n");
-    exit(1);
-  }
-  result = gpiod_line_request_output(gpio_line, CONSUMER, 0);
-  if (result < 0) {
-    perror("Request line as output failed\n");
-    abort();
-  }
-  return(gpio_line);
-}
-
-struct gpiod_line * setAsInput(int pin){
-  struct gpiod_line *gpio_line;
-  int result;
-
-  gpio_line = gpiod_chip_get_line(chip, pin);
-  if (!gpio_line) {
-    gpiod_chip_close(chip);
-    perror("Get line failed\n");
-    exit(1);
-  }
-  result = gpiod_line_request_input(gpio_line, CONSUMER);
-  if (result < 0) {
-    perror("Request line as input failed\n");
-    abort();
-  }
-  return(gpio_line);
-}
-
 void init_hardware()
 {
-  char *chipname = "gpiochip0";
-  /* open the chip */
-  chip = gpiod_chip_open_by_name(chipname);
-  if (!chip) {
-    perror("Open chip failed\n");
-    exit(1);
-  }
+  openChip();
   dataoutline  = setAsInput(dataOutPin);
   sarsline  = setAsInput(sarsPin);
   datainline   = setAsOutput(dataInPin);
@@ -101,51 +43,37 @@ void init_hardware()
   csbarline = setAsOutput(csbarPin);
 }
 
-void writeState(struct gpiod_line *line, unsigned int state){
-  int result;
-  result = gpiod_line_set_value(line, state);
-  if (result < 0){
-    perror("Set line output failed\n");
-    abort();
-  }
-  delay(10);
-}
-
-int readState(struct gpiod_line *line){
-  return( gpiod_line_get_value(line));
-}
-
 void select_channel(unsigned int num)
 {
-  // num is the number of the channel to be read out
+  /* num is the number of the channel to be read out */
   int odd  = (num & (1u << 0) ? HIGH : LOW);
   int bit0 = (num & (1u << 1) ? HIGH : LOW);
   int bit1 = (num & (1u << 2) ? HIGH : LOW);
-  // write start bit
+  /* write start bit */
   writeState(clockline, LOW);
   writeState(datainline, HIGH);
   writeState(clockline, HIGH);
   writeState(clockline, LOW);
-  // write SGL should be one
+  /* write SGL should be one */
   writeState(datainline, HIGH);
   writeState(clockline, HIGH);
   writeState(clockline, LOW);
-  // write Odd/sign bit
+  /* write Odd/sign bit */
   writeState(datainline, odd);
   writeState(clockline, HIGH);
   writeState(clockline, LOW);
-  // write bit 1
+  /* write bit 1 */
   writeState(datainline, bit1);
   writeState(clockline, HIGH);
   writeState(clockline, LOW);
-  // write bit 0
+  /* write bit 0 */
   writeState(datainline, bit0);
   writeState(clockline, HIGH);
   writeState(clockline, LOW);
 }
 
 int read_channel(unsigned int num){
-  // enable chip
+  /* enable chip */
   writeState(csbarline, LOW);
   select_channel(num);
   writeState(clockline, HIGH);
@@ -157,10 +85,9 @@ int read_channel(unsigned int num){
     writeState(clockline, LOW);
     int data = readState(dataoutline);
     out = out + k*data;
-    //printf("k=%d data=%d out=%d",k, data, out);
     k = k/2;
   };
-  // disable chip
+  /* disable ADC chip */
   writeState(csbarline, HIGH);
   return out;
 }
@@ -168,12 +95,11 @@ int read_channel(unsigned int num){
 int main(int argc, char **argv)
 {
   int sensors[6];
-  // initialise the hardware
+  /* initialise the hardware */
   init_hardware();
   writeState(csbarline, HIGH);
   writeState(clockline, LOW);
   while (1) {
-    //
     for (int channel=0;channel<6;channel++){
       sensors[channel] = read_channel(channel);
     }
