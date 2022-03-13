@@ -80,7 +80,7 @@ The plugs are then inserted into the holes into the bottom part of the robot fro
 ## Voltage converter
 A voltage converter is used to provide the required 5V power used by the Raspberry-Pi. The 5V output current is provided via a USB plug, and a short USB 2 to USBC cable is used to connect the two.
 
-![Circuits used](diagrams/converter.svg)
+![Circuits used](electronics/diagrams/converter.svg)
 
 The converter is used as power supply for the sensors mainly, to offload the StromPi. As it may not be strictly needed it is possible that it will be dropped in the future.
 
@@ -92,8 +92,8 @@ Here's a close-up image of how it looks like in reality:
 ## Voltage controller
 The voltage controller is needed to have some control over the status of the battery. It has 2 LEDs, and if the voltage drops too low, a red light will indicate that it is time to recharge the battery.
 
-![Circuits used](diagrams/converter.svg)
+![Circuits used](electronics/diagrams/voltagecontrol.svg)
 
 ## ADC board
 The ADC board uses an ADC0838 chip to digitize the signals from the pressure sensors in the feets of the robot.
-![Circuits used](diagrams/digitizers.svg)
+![Circuits used](electronics/diagrams/digitizers.svg)
