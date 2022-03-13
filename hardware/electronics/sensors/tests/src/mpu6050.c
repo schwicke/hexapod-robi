@@ -24,20 +24,24 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 #include "linux/i2c-dev.h"
 #include "i2c/smbus.h"
 
+double PI = 4.0*atan(1.0);
+
 double dist(double x, double y){
   return (sqrt(x*x+y*y));
 }
 
 double rad2grad(double x){
-  return(360.0/(4.0*asin(1))*x);
+  return(180.0/PI*x);
 }
 
 double get_y_rotation(double x, double y, double z){
-  return(atan2(x, dist(y,z)));
+  double rad = atan2(x, dist(y,z));
+  return(rad2grad(rad));
 }
   
 double get_x_rotation(double x, double y, double z) {
-  return(atan2(y, dist(x,z)));
+  double rad = atan2(y, dist(x, z));
+  return(rad2grad(rad));
 }
 
 int main(int argc, char *argv[])
