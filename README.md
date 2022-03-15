@@ -13,7 +13,7 @@ The aim of this little project is the creation of a fully self-designed and 3d p
 
 The longer term goal is to equip this robot with various additional sensors, giving feedback about the environment and orientation of the robot.
 
-![Latest robot](media/mbot-2022-03-13.png)
+![Latest robot](hardware/photos/mbot-2022-03-13.jpg)
 
 ## Hardware
 A description of the hardware can be found in in the [hardware folder](hardware/README.md).

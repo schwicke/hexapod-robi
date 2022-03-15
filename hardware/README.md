@@ -30,6 +30,7 @@ These are connected using the mount parts
 The lowest layer hosts the connectors for the motors. For each motor connector, an appropriate connector box is needed:
 * ./body/connector_boxes.scad
 
+
 Finally the body sides are moduler. Currently existing are:
 * ./body/side_sensor.scad for the ultrasonic sensors
 * ./body/side_power.scad  contains holes for switches
@@ -72,10 +73,18 @@ Connecting the motors is a bit tricky due to the length of the available cables.
 Therefore, in front of roughly each leg there we added additional P3 plugs which help reducing the cable lengths.
 The bottom part of the robot has holes forseen for these hubs. To create them, the Molex P3 plugs are soldered on small bits of a PCB perfboard, 3 in pairs of 3 and 2 in pairs of 2 are needed. The pins are to be paired up, like this:
 
-![3x motor connector](3x_hub.svg)
+![3x motor connector](photos/3x_hub.svg)
+
+This picture shows the parts needed to create those boxes:
+
+![Connector parts](photos/motor_cabling_parts.jpeg)
 
 The plugs are then inserted into the holes into the bottom part of the robot from below, and fixed with screws with the help of the printed connector boxes. A power distirbution hub seen from below the robot looks like this:
-![Power hub from below](hubbox_below.png)
+![Power hub from below](photos/hubbox_below.png)
+
+Cabling is done as in the following figure. The still empty plugs are used to connect the legs.
+
+![Motor cabling](photos/motor_cabling.jpeg)
 
 ## Voltage converter
 A voltage converter is used to provide the required 5V power used by the Raspberry-Pi. The 5V output current is provided via a USB plug, and a short USB 2 to USBC cable is used to connect the two.
@@ -87,7 +96,7 @@ The converter is used as power supply for the sensors mainly, to offload the Str
 For the voltage converter is built on a PCB perfboard with dimensions 40x60mm. The regulator IC needs an sufficiently sized heat sink.Using a voltage converter has the advantage that a single power supply of 12V can be used to power the hole robot. In a later version, this may be replaced by a 11.2V Lithium Polymere battery.
 
 Here's a close-up image of how it looks like in reality:
-![Power converter with heat sink](voltage_regulator.jpg)
+![Power converter with heat sink](photos/voltage_regulator.jpg)
 
 ## Voltage controller
 The voltage controller is needed to have some control over the status of the battery. It has 2 LEDs, and if the voltage drops too low, a red light will indicate that it is time to recharge the battery.
@@ -96,4 +105,22 @@ The voltage controller is needed to have some control over the status of the bat
 
 ## ADC board
 The ADC board uses an ADC0838 chip to digitize the signals from the pressure sensors in the feets of the robot.
+
 ![Circuits used](electronics/diagrams/digitizers.svg)
+
+## Layers
+
+### Lowest layer
+The first layer takes the motor cabling, as described above, and the battery. The battery should be fixed so that it cannot move or slip out of the robot. A piece of hook-and-loop tape can be used to accomplish this.
+
+![First layer](photos/1st_layer.jpg)
+
+### Second layer
+The second layer takes the SSD disk for the Raspberry-pi, the U2D2 board and optionally the 5V power converter.
+
+![Second layer](photos/2nd_layer.jpg)
+
+### Top layer
+The top layer takes the electronics for the sensors, the Raspberry-Pi, and the power control board.
+
+![Third layer](photos/mbot-2022-03-13.jpg)
