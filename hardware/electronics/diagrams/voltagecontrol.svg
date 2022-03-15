@@ -2,9 +2,9 @@
 <!-- Created with Inkscape (http://www.inkscape.org/) -->
 
 <svg
-   width="210mm"
-   height="297mm"
-   viewBox="0 0 210 297"
+   width="180.41318mm"
+   height="62.871716mm"
+   viewBox="0 0 180.41318 62.871716"
    version="1.1"
    id="svg3096"
    inkscape:version="1.1.1 (3bf5ae0d25, 2021-09-20)"
@@ -26,8 +26,8 @@
      inkscape:object-paths="true"
      inkscape:snap-nodes="false"
      inkscape:zoom="1.5037598"
-     inkscape:cx="478.79987"
-     inkscape:cy="128.34496"
+     inkscape:cx="367.7449"
+     inkscape:cy="117.70497"
      inkscape:window-width="1551"
      inkscape:window-height="749"
      inkscape:window-x="330"
@@ -38,21 +38,24 @@
      showguides="false">
     <inkscape:grid
        type="xygrid"
-       id="grid54170" />
+       id="grid54170"
+       originx="-29.398708"
+       originy="-2.8194357" />
   </sodipodi:namedview>
   <defs
      id="defs3093">
     <rect
-       x="85.87414"
+       x="85.874138"
        y="75.579597"
-       width="5.8793733"
-       height="31.678426"
+       width="5.8793731"
+       height="31.678427"
        id="rect42630" />
   </defs>
   <g
      inkscape:label="Layer 1"
      inkscape:groupmode="layer"
-     id="layer1">
+     id="layer1"
+     transform="translate(-29.398708,-2.8194356)">
     <g
        id="g2315"
        transform="matrix(0.26458333,0,0,0.26458333,-213.16131,-72.287582)"
@@ -344,7 +347,7 @@
            sodipodi:nodetypes="cc" />
       </g>
       <path
-         style="fill:none;stroke:#000000;stroke-width:3.50000004;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+         style="fill:none;stroke:#000000;stroke-width:3.5;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
          d="m 1194.0029,387.07396 -0.1051,53.79879"
          id="path135809" />
       <path
