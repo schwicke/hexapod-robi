@@ -15,10 +15,6 @@ You should have received a copy of the GNU General Public License
 along with this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
-/* Proof of concept for
-reads out channel 1 - 6 of adc0838 digitizer,
-and prints the results on the screen
-*/
 #include <gpiod.h>
 #include <stdio.h>
 #include <unistd.h>
@@ -33,7 +29,7 @@ void abort(){
   exit(0);
 }
 
-void init_hardware()
+void init_adc0838()
 {
   openChip();
   dataoutline  = setAsInput(dataOutPin);
@@ -92,19 +88,11 @@ int read_channel(unsigned int num){
   return out;
 }
 
-int main(int argc, char **argv)
-{
-  int sensors[6];
-  /* initialise the hardware */
-  init_hardware();
+void adc0838(int sensors[]){
   writeState(csbarline, HIGH);
   writeState(clockline, LOW);
-  while (1) {
-    for (int channel=0;channel<6;channel++){
-      sensors[channel] = read_channel(channel);
-    }
-    printf("Pressure sensor readings: %d %d %d %d %d %d\n",
-           sensors[0], sensors[1], sensors[2], sensors[3], sensors[4], sensors[5]);
-    delay(1);
+  for (int channel=0; channel<channels; channel++){
+    sensors[channel] = read_channel(channel);
   }
 }
+

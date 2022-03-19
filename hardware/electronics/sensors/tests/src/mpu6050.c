@@ -34,44 +34,41 @@ double rad2grad(double x){
   return(180.0/PI*x);
 }
 
-double get_y_rotation(double x, double y, double z){
-  double rad = atan2(x, dist(y,z));
+double get_y_rotation(double accvec[3]){
+  double rad = atan2(accvec[0], dist(accvec[1],accvec[2]));
   return(rad2grad(rad));
 }
   
-double get_x_rotation(double x, double y, double z) {
-  double rad = atan2(y, dist(x, z));
+double get_x_rotation(double accvec[3]) {
+  double rad = atan2(accvec[1], dist(accvec[0], accvec[2]));
   return(rad2grad(rad));
 }
 
-int main(int argc, char *argv[])
-{
-    int fd;
-    fd = open("/dev/i2c-1", O_RDWR);
-    if(fd < 0) {
-        fprintf(stderr, "Error opening device\n");
-        exit(EXIT_FAILURE);
-    }
-    if(ioctl(fd, I2C_SLAVE, 0x68) < 0) {
-        fprintf(stderr, "Error setting slave address\n");
-        close(fd);
-        exit(EXIT_FAILURE);
-    }
-    i2c_smbus_write_byte_data(fd, 0x6b, 0b00000000); // wake the module up
-    while (1) {
-      /* gyroscope */
-      int16_t gyroscop_xout = i2c_smbus_read_byte_data(fd, 0x43) << 8 | i2c_smbus_read_byte_data(fd, 0x44);
-      int16_t gyroscop_yout = i2c_smbus_read_byte_data(fd, 0x45) << 8 | i2c_smbus_read_byte_data(fd, 0x46);
-      int16_t gyroscop_zout = i2c_smbus_read_byte_data(fd, 0x47) << 8 | i2c_smbus_read_byte_data(fd, 0x48);
-      /* acceleration */
-      int16_t acc_xout = i2c_smbus_read_byte_data(fd, 0x3b) << 8 | i2c_smbus_read_byte_data(fd, 0x3c);
-      int16_t acc_yout = i2c_smbus_read_byte_data(fd, 0x3d) << 8 | i2c_smbus_read_byte_data(fd, 0x3e);
-      int16_t acc_zout = i2c_smbus_read_byte_data(fd, 0x3f) << 8 | i2c_smbus_read_byte_data(fd, 0x40);
-      /* rotation */
-      double rot_x = get_x_rotation((double)acc_xout/16384.0, (double)acc_yout/16384.0, (double)acc_zout/16384.0);
-      double rot_y = get_y_rotation((double)acc_xout/16384.0, (double)acc_yout/16384.0, (double)acc_zout/16384.0);
-      printf("Gyroscop     %d %d %d\n", gyroscop_xout, gyroscop_yout, gyroscop_zout);
-      printf("Acceleration %f.2 %f.2 %f.2\n", acc_xout/16384.0, acc_yout/16384.0, acc_zout/16384.0);
-      printf("Rotation     %f.2 %f.2\n", rot_x, rot_y);
-    }
+int init_mpu6050(){
+  int fd = open("/dev/i2c-1", O_RDWR);
+  if(fd < 0) {
+    fprintf(stderr, "Error opening device\n");
+    exit(EXIT_FAILURE);
+  }
+  if(ioctl(fd, I2C_SLAVE, 0x68) < 0) {
+    fprintf(stderr, "Error setting slave address\n");
+    close(fd);
+    exit(EXIT_FAILURE);
+  }
+  i2c_smbus_write_byte_data(fd, 0x6b, 0b00000000); // wake the module up
+  return(fd);
+};
+
+void mpu6050(int fd, int16_t gyr[3], double acc[3], double rot[2]){
+  /* gyroscope */
+  gyr[0] = i2c_smbus_read_byte_data(fd, 0x43) << 8 | i2c_smbus_read_byte_data(fd, 0x44);
+  gyr[1] = i2c_smbus_read_byte_data(fd, 0x45) << 8 | i2c_smbus_read_byte_data(fd, 0x46);
+  gyr[2] = i2c_smbus_read_byte_data(fd, 0x47) << 8 | i2c_smbus_read_byte_data(fd, 0x48);
+  /* acceleration */
+  acc[0] = (double)(i2c_smbus_read_byte_data(fd, 0x3b) << 8 | i2c_smbus_read_byte_data(fd, 0x3c))/16384.0;
+  acc[1] = (double)(i2c_smbus_read_byte_data(fd, 0x3d) << 8 | i2c_smbus_read_byte_data(fd, 0x3e))/16384.0;
+  acc[2] = (double)(i2c_smbus_read_byte_data(fd, 0x3f) << 8 | i2c_smbus_read_byte_data(fd, 0x40))/16384.0;
+  /* rotation */
+  rot[0] = get_x_rotation(acc);
+  rot[1] = get_y_rotation(acc);
 }

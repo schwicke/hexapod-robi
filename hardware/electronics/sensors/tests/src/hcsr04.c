@@ -18,9 +18,9 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 #include <stdio.h>
 #include <unistd.h>
 #include <sys/time.h>
-#include "hc-sr04.h"
+#include "distsensors.h"
 
-void init_hardware()
+void init_hcsr04()
 {
   openChip();
   trig1Line  = setAsOutput(trig1Pin);
@@ -63,17 +63,10 @@ float getDistance(struct gpiod_line * trigLine, struct gpiod_line * echoLine){
   return distance;
 }
 
-int main(){
-  init_hardware();
+void hcsr04(float dist[]){
   writeState(trig1Line, LOW);
   writeState(trig2Line, LOW);
-
-  float distance_front = 0.0;
-  float distance_rear = 0.0;
-  while(1){
-    distance_front = getDistance(trig1Line, echo1Line);
-    distance_rear = getDistance(trig2Line, echo2Line);
-    printf("The distances are : %.2f cm and %.2f cm\n", distance_front, distance_rear);
-    delay(1000);
-  }
+  dist[0] = getDistance(trig1Line, echo1Line);
+  dist[1] = getDistance(trig2Line, echo2Line);
 }
+

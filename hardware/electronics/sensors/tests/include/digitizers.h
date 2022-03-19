@@ -1,6 +1,7 @@
 #ifndef DIGITIZER_H
 #define DIGITIZER_H
 #include "common.h"
+#include "adc0838.h"
 
 /* define the pins used to read out the digitizers*/
 #define csbarPin 16
