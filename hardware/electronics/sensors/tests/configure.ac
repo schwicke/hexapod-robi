@@ -9,4 +9,4 @@ LT_PREREQ([2.2])
 LT_INIT([dlopen])
 AC_ENABLE_SHARED
 AC_SUBST([LIBTOOL_DEPS])
-AC_OUTPUT(Makefile lib/Makefile src/Makefile)
+AC_OUTPUT(Makefile include/Makefile lib/Makefile src/Makefile)
